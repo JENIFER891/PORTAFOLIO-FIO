@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Proyectos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>PROYECTOS</h1>
+    <nav>
+      <a href="index.html">INICIO</a>
+      <a href="sobre-mi.html">SOBRE MÍ</a>
+      <a href="proyectos.html">PROYECTOS</a>
+      <a href="cuaderno.html">CUADERNO</a>
+      <a href="reflexion.html">REFLEXIÓN</a>
+      <a href="bibliografia.html">BIBLIOGRAFÍA</a>
+    </nav>
+  </header>
+<main class="proyectos-galeria">
+  <h2 style="text-align: center; margin-top: 30px;">Mis Proyectos</h2>
+  <div class="grid-proyectos">
+    <div class="proyecto" onclick="abrirModal(1)">
+      <img src="img/proyecto1.jpg" alt="Proyecto 1">
+    </div>
+    <div class="proyecto" onclick="abrirModal(2)">
+      <img src="img/proyecto2.jpg" alt="Proyecto 2">
+    </div>
+    <div class="proyecto" onclick="abrirModal(3)">
+      <img src="img/proyecto3.jpg" alt="Proyecto 3">
+    </div>
+    <div class="proyecto" onclick="abrirModal(4)">
+      <img src="img/proyecto4.jpg" alt="Proyecto 4">
+    </div>
+    <div class="proyecto" onclick="abrirModal(5)">
+      <img src="img/proyecto5.jpg" alt="Proyecto 5">
+    </div>
+  </div>
+</main>
+
+<!-- Modal -->
+<div id="modalProyecto" class="modal">
+  <div class="modal-contenido">
+    <span class="cerrar" onclick="cerrarModal()">&times;</span>
+    <div id="contenidoModal">
+      <!-- JavaScript -->
+        <script>
+function abrirModal(id) {
+  const modal = document.getElementById("modalProyecto");
+  const contenido = document.getElementById("contenidoModal");
+
+  const datos = {
+    1: {
+      titulo: "Proyecto 1: ",
+      descripcion: " ",
+      imagenes: ["img/proyecto1_1.jpg", "img/proyecto1_2.jpg"]
+    },
+    2: {
+      titulo: "Proyecto 2: ",
+      descripcion: " ",
+      imagenes: ["img/proyecto2_1.jpg", "img/proyecto2_2.jpg"]
+    },
+    3: {
+      titulo: "Proyecto 3:",
+      descripcion: " ",
+      imagenes: ["img/proyecto3_1.jpg", "img/proyecto3_2.jpg"]
+    },
+    4: {
+      titulo: "Proyecto 4: ",
+      descripcion: " ",
+      imagenes: ["img/proyecto4_1.jpg"]
+    },
+    5: {
+      titulo: "Proyecto 5:",
+      descripcion: " ",
+      imagenes: ["img/proyecto5_1.jpg", "img/proyecto5_2.jpg"]
+    }
+  };
+
+  const proyecto = datos[id];
+  contenido.innerHTML = `
+    <h2>${proyecto.titulo}</h2>
+    <p>${proyecto.descripcion}</p>
+    <div style="display:flex; flex-wrap: wrap; gap: 10px;">
+      ${proyecto.imagenes.map(src => `<img src="${src}" alt="">`).join('')}
+    </div>
+  `;
+
+  modal.style.display = "block";
+}
+
+function cerrarModal() {
+  document.getElementById("modalProyecto").style.display = "none";
+}
+
+
+function abrirModal(id) {
+  const modal = document.getElementById("modalProyecto");
+  const contenido = document.getElementById("contenidoModal");
+
+  const datos = {
+    1: {
+      titulo: "Proyecto 1:",
+      descripcion: "Por concluir",
+      imagenes: ["img/proyecto1_1.jpg", "img/proyecto1_2.jpg"],
+      forma: "cuadro"
+    },
+    2: {
+      titulo: "Proyecto 2:",
+      descripcion: "Por concluir",
+      imagenes: ["img/proyecto2_1.jpg", "img/proyecto2_2.jpg"],
+      forma: "circulo"
+    },
+    3: {
+      titulo: "Proyecto 3:",
+      descripcion: "Por concluir",
+      imagenes: ["img/proyecto3_1.jpg", "img/proyecto3_2.jpg"],
+      forma: "cuadro"
+    },
+    4: {
+      titulo: "Proyecto 4: ",
+      descripcion: "Por concluir",
+      imagenes: ["img/proyecto4_1.jpg"],
+      forma: "circulo"
+    },
+    5: {
+      titulo: "Proyecto 5:",
+      descripcion: "Por concluir",
+      imagenes: ["img/proyecto5_1.jpg", "img/proyecto5_2.jpg"],
+      forma: "cuadro"
+    }
+  };
+
+  const proyecto = datos[id];
+  const clase = proyecto.forma === "circulo" ? "img-circulo" : "img-cuadro";
+
+  contenido.innerHTML = `
+    <h2>${proyecto.titulo}</h2>
+    <p>${proyecto.descripcion}</p>
+    <div class="modal-imagenes">
+      ${proyecto.imagenes.map(src => `<img src="${src}" alt="" class="${clase}">`).join('')}
+    </div>
+  `;
+
+  modal.style.display = "block";
+}
+
+
+</script>
+
+
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
