@@ -40,7 +40,7 @@ section {
   display: inline-block;
   margin-top: 10px;
   padding: 10px 15px;
-  background-color: #ffffff;
+  background-color: #7608f3;
   color: white;
   text-decoration: none;
   border-radius: 6px;
@@ -193,7 +193,7 @@ ul {
 
 #info-extra h3 {
   margin-top: 1rem;
-  color: #444;
+  color: #000000;
 }
 
 #info-extra ul {
@@ -249,9 +249,9 @@ ul {
 }
 
 .recuadro {
-  background-color: rgba(255, 255, 255, 0.85);
+  background-color: rgba(200, 172, 255, 0.85);
   border-radius: 15px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  box-shadow: 0 0 10px rgb(0, 0, 0);
   max-width: 300px;
   padding: 20px;
   text-align: center;
@@ -260,7 +260,7 @@ ul {
 
 .recuadro:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  box-shadow: 0 8px 20px rgb(0, 0, 0);
 }
 
 .recuadro img {
@@ -272,13 +272,13 @@ ul {
 }
 
 .recuadro h3 {
-  color: #333;
+  color: #000000;
   margin-bottom: 10px;
 }
 
 .recuadro p {
   font-size: 0.95em;
-  color: #555;
+  color: #000000;
 }
 
 /* RESPONSIVE PARA RECUADROS */
@@ -501,7 +501,7 @@ ul {
   box-shadow: 0 0 10px rgba(0,0,0,0.15);
   padding: 20px;
   flex: 1 1 45%;
-  color: #333;
+  color: #0c0c0c;
   min-width: 250px;
   text-align: center;
 }
@@ -588,18 +588,18 @@ ul {
   left: 0; top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.8);
+  background-color: rgb(0, 0, 0);
 }
 
 .modal-contenido {
-  background-color: #fff;
-  margin: 5% auto;
-  padding: 30px;
-  width: 100%;
-  max-width: 1000px;
-  border-radius: 10px;
-  position: relative;
+  background-image: url("img/fondo-modal.jpg");
+  background-size: cover;        /* Ajusta la imagen al tamaño del modal */
+  background-repeat: no-repeat;  /* No repite la imagen */
+  background-position: center;   /* Centra la imagen */
+  color: rgb(0, 0, 0);                  /* Ajusta el color de texto si es necesario */
+  /* ...otros estilos... */
 }
+
 
 .cerrar {
   position: absolute;
