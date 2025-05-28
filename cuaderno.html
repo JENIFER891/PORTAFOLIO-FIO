@@ -11,6 +11,7 @@
       gap: 20px;
       padding: 20px;
     }
+
     .semana {
       background-color: #d5cfff;
       border: 2px solid #a499e7;
@@ -21,9 +22,11 @@
       cursor: pointer;
       transition: transform 0.2s;
     }
+
     .semana:hover {
       transform: scale(1.05);
     }
+
     .modal {
       display: none;
       position: fixed;
@@ -33,17 +36,19 @@
       width: 100%;
       height: 100%;
       overflow: auto;
-      background-color: rgba(0, 0, 0, 0.6);
+      background-color: rgba(206, 231, 224, 0.6);
     }
+
     .modal-contenido {
-      background-color: #fff;
+      background-color: #d8bbfb;
       margin: 5% auto;
-      padding: 30px;
+      padding: 40px 100px;
       width: 90%;
       max-width: 900px;
       border-radius: 10px;
       position: relative;
     }
+
     .cerrar {
       position: absolute;
       top: 10px;
@@ -51,6 +56,7 @@
       font-size: 30px;
       cursor: pointer;
     }
+
   </style>
 </head>
 <body>
@@ -80,54 +86,50 @@
 
   <script>
     const contenidoSemanas = {
-1: `
-    <h2>Semana 1: Desarrollo de Aplicaciones Web</h2>
-    <h3>Frontend</h3>
-    <p><strong>Definición:</strong> El frontend se refiere a la parte de la aplicación web que interactúa directamente con el usuario. Se centra en la interfaz y la experiencia del usuario.</p>
-    <p><strong>Tecnologías Utilizadas:</strong></p>
-    <ul>
-      <li><strong>HTML (HyperText Markup Language):</strong> Estructura del contenido de la página web.</li>
-      <li><strong>CSS (Cascading Style Sheets):</strong> Estilo y presentación visual de la página, permitiendo el diseño responsivo y atractivo.</li>
-      <li><strong>JavaScript:</strong> Lenguaje de programación que permite la interactividad en la web, como animaciones, validación de formularios y manipulación del DOM (Document Object Model).</li>
-    </ul>
-    <h3>Backend</h3>
-    <p><strong>Definición:</strong> El backend es la parte de la aplicación que se encarga de la lógica del servidor, la base de datos y la comunicación entre el servidor y el cliente.</p>
-    <p><strong>Lenguajes y Tecnologías Utilizadas:</strong></p>
-    <ul>
-      <li>Python</li>
-      <li>Java</li>
-      <li>PHP</li>
-    </ul>
-    <h3>Diseño UX/UI</h3>
-    <h4>UI (Interfaz de Usuario)</h4>
-    <ul>
-      <li>Figma</li>
-      <li>Adobe XD</li>
-    </ul>
-    <h4>UX (Experiencia de Usuario)</h4>
-    <p><strong>Enfoque:</strong> Se centra en crear experiencias agradables y eficientes para el usuario. Esto incluye la investigación de usuarios, pruebas de usabilidad y diseño centrado en el usuario.</p>
-    <p><strong>Objetivo:</strong> Asegurar que la interacción con el producto sea intuitiva, satisfactoria y cumpla con las necesidades del usuario.</p>
-    <h3>Práctica en Visual Studio Code</h3>
-    <p><strong>Ejercicios Prácticos:</strong></p>
-    <ul>
-      <li><strong>Familiarización con la Herramienta:</strong> Aprender a utilizar Visual Studio Code como entorno de desarrollo integrado (IDE).</li>
-      <li><strong>Uso de Git:</strong> Incluir comandos básicos: git init, git add, git commit, git push.</li>
-      <li><strong>Atajos de Teclado:</strong> Mejora de eficiencia en el desarrollo.</li>
-      <li><strong>Emmet:</strong> Utilización para generar código HTML y CSS rápidamente.</li>
-    </ul>
-    <h3>Ejemplos Aplicados</h3>
-    <div class="modal-imagenes">
-      <div class="img-cuadro">Ejemplo 1</div>
-      <div class="img-cuadro">Ejemplo 2</div>
-    </div>
-    <div class="pdf-controls">
-      <a href="pdfs/semana1.pdf" download>Descargar PDF de clase</a>
-    </div>
-    <p><a href="https://github.com/usuario/repositorio-semana1" target="_blank">Ver práctica en GitHub</a></p>
-  `,
+      1: `
+        <h1 style="text-align: center;">Semana 1: Desarrollo de Aplicaciones Web</h1>
+        <h3>      Frontend</h3>
+        <p><strong>Definición:</strong>   El frontend se refiere a la parte de la aplicación web que interactúa directamente con el usuario. Se centra en la interfaz y la experiencia del usuario.</p>
+        <p><strong>Tecnologías Utilizadas:</strong></p>
+        <ul>
+          <li><strong>HTML:</strong> Estructura del contenido de la página web.</li>
+          <li><strong>CSS:</strong> Estilo y presentación visual de la página.</li>
+          <li><strong>JavaScript:</strong> Interactividad, animaciones, DOM.</li>
+        </ul>
+
+        <h3>Backend</h3>
+        <p><strong>Definición:</strong> Parte de la app que gestiona el servidor, base de datos y lógica.</p>
+        <ul>
+          <li>Python</li>
+          <li>Java</li>
+          <li>PHP</li>
+        </ul>
+
+        <h3>Diseño UX/UI</h3>
+        <h4>UI</h4>
+        <ul>
+          <li>Figma</li>
+          <li>Adobe XD</li>
+        </ul>
+        <h4>UX</h4>
+        <p><strong>Objetivo:</strong> Crear experiencias intuitivas y agradables para el usuario.</p>
+
+        <h3>Práctica en Visual Studio Code</h3>
+        <ul>
+          <li>Uso de Git</li>
+          <li>Atajos de teclado</li>
+          <li>Emmet</li>
+        </ul>
+
+        <div class="pdf-controls">
+          <a href="docs/semana1.pdf" download>Descargar PDF de clase</a>
+        </div>
+
+        <a href="https://jenifer891.github.io/PORTAFOLIO-FIO/" target="_blank">Ver práctica en GitHub</a>
+      `,
 
   2: `
-    <h2>Semana 2: Visual Studio Code</h2>
+    <h1 style="text-align: center;">Semana 2: Visual Studio Code</h1>
     <p>Visual Studio Code es utilizado en el curso IS093 – DESARROLLO DE APLICACIONES WEB.</p>
     <ul>
       <li>Para descargar e instalar, se puede acceder a través del enlace http://code.visualstudio.com.</li>
@@ -143,19 +145,15 @@
       <li>Ejercicios de Emmet.</li>
       <li>Ejercicios de atajos de teclado.</li>
     </ul>
-    <h3>Ejemplos Aplicados</h3>
-    <div class="modal-imagenes">
-      <div class="img-cuadro">Pantalla VSC</div>
-      <div class="img-circulo">Emmet</div>
-    </div>
+
     <div class="pdf-controls">
-      <a href="pdfs/semana2.pdf" download>Descargar PDF de clase</a>
+      <a href="docs/semana2.pdf" download>Descargar PDF de clase</a>
     </div>
     <p><a href="https://github.com/usuario/repositorio-semana2" target="_blank">Ver práctica en GitHub</a></p>
   `,
 
  3: `
-  <h2>Semana 3: HTML y CSS</h2>
+  <h1 style="text-align: center;">Semana 3: HTML y CSS</h1>
 
   <h3>HTML Básico</h3>
   <ul>
@@ -215,23 +213,20 @@
     <li><strong>Filtros y efectos visuales avanzados.</strong></li>
     <li><strong>Optimización de rendimiento en CSS.</strong></li>
   </ul>
-  <h3>Ejemplos Aplicados</h3>
-    <div class="modal-imagenes">
-      <div class="img-cuadro">HTML</div>
-      <div class="img-cuadro">CSS</div>
-       <div class="img-cuadro">Avanzado</div>
-    </div>
+ 
   
-  <p><a href="https://github.com/usuario/repositorio-semana3" target="_blank">Ver práctica en GitHub</a></p>
+  <p><a href="https://github.com/mayra122717/PracticaCalificada2a.git" target="_blank">Ver práctica en GitHub</a></p>
   <div class="pdf-controls">
-    <a href="pdfs/semana3.pdf" download>Descargar PDF de clase</a>
-
+    <a href="docs/semana3.pdf" download>Descargar PDF de clase</a>
+    <a href="docs/semana3_1.pdf" download>Descargar PDF de clase</a>
+    <a href="docs/semana3_2.pdf" download>Descargar PDF de clase</a>
+    
     </div>
 `,
 
 
  4: `
-  <h2>Semana 4: Bootstrap, Tailwind CSS y JavaScript Básico</h2>
+  <h1 style="text-align: center;">Semana 4: Bootstrap, Tailwind CSS y JavaScript Básico</h1>
 
   <h3>Bootstrap</h3>
   <ul>
@@ -274,25 +269,19 @@
     <li><strong>JSON y almacenamiento:</strong> <code>localStorage</code>, <code>sessionStorage</code>.</li>
     <li><strong>Depuración:</strong> Uso de <code>console.log</code>, <code>debugger</code>.</li>
   </ul>
-  <h3>Ejemplos Aplicados</h3>
-    <div class="modal-imagenes">
-      <div class="img-cuadro">Ejemplo Bootstrap<</div>
-      <div class="img-cuadro">Ejemplo Tailwind</div>
-       <div class="img-cuadro">Ejemplo JavaScript</div>
+
+  
+  <p><a href="https://github.com/ame1805/PracticaCalificada3.git target="_blank">Ver práctica en GitHub</a></p>
+  <div class="pdf-controls">
+    <a href="docs/semana4.pdf" download>Descargar PDF de clase A</a><br>
+    <a href="docs/semana4_1.pdf" download>Descargar PDF de clase B</a><br>
+    <a href="docs/semana4_2.pdf" download>Descargar PDF de clase C</a>
+ 
     </div>
-
-  <p><a href="https://github.com/usuario/repositorio-semana4" target="_blank">Ver práctica en GitHub</a></p>
-
-  <div class="pdf-controls">
-    <a href="pdfs/semana4.pdf" download>Descargar PDF de clase</a>
-  <p><a href="https://github.com/usuario/repositorio-semana4" target="_blank">Ver práctica en GitHub</a></p>
-  <div class="pdf-controls">
-    <a href="pdfs/semana4.pdf" download>Descargar PDF de clase</a>
-  </div>
 `,
 
 5: `
-  <h2>Semana 5: React JS</h2>
+  <h1 style="text-align: center;">Semana 5: React JS</h1>
 
   <h3>React es una librería de JavaScript para crear interfaces de usuario</h3>
   <p>Especialmente SPAs (Single Page Applications) y componentes reutilizables.</p>
@@ -384,24 +373,17 @@
 </ul>
 
 
-  <h3>Ejemplos Aplicados</h3>
-    <div class="modal-imagenes">
-      <div class="img-cuadro">Instalación Node.js<</div>
-      <div class="img-cuadro">Uso de create-react-app</div>
-       <div class="img-cuadro">JSX con Babel en HTML</div>
-    </div>
-
   <h3>Práctica</h3>
   <p><a href="https://github.com/usuario/repositorio-semana5" target="_blank">Ver práctica en GitHub</a></p>
 
   <div class="pdf-controls">
-    <a href="pdfs/semana5.pdf" download>Descargar PDF de clase</a>
+    <a href="docs/semana5.pdf" download>Descargar PDF de clase</a>
   </div>
 `,
 
 
     6: `
-  <h2>Semana 6: Creación y Diseño de Componentes en React</h2>
+  <h1 style="text-align: center;">Semana 6: Creación y Diseño de Componentes en React</h1>
 
   <h3>Guía sobre la Creación y Diseño de Componentes en React</h3>
   <p>Esta guía explica cómo crear componentes en React utilizando archivos con extensiones <code>.js</code>, <code>.jsx</code>, <code>.ts</code> y <code>.tsx</code>. Se destaca que el nombre de los componentes debe comenzar con una letra mayúscula. Los componentes en React se componen de tres partes principales:</p>
@@ -458,22 +440,16 @@
 return &lt;div&gt;Hola, {nombre}!&lt;/div&gt;;</code></pre>
   <p>En este caso, la variable <code>nombre</code> se inserta en el JSX y se renderiza como parte del contenido del componente.</p>
 
-  <h3>Ejemplos Aplicados</h3>
-    <div class="modal-imagenes">
-      <div class="img-cuadro">Clase vs Función<</div>
-      <div class="img-cuadro">Estilos en línea</div>
-       <div class="img-cuadro">JSX con variables</div>
-    </div>
 
   <p><a href="https://github.com/usuario/repositorio-semana6" target="_blank">Ver práctica en GitHub</a></p>
   <div class="pdf-controls">
-    <a href="pdfs/semana6.pdf" download>Descargar PDF de clase</a>
+    <a href="docs/semana6.pdf" download>Descargar PDF de clase</a>
   </div>
 `
 ,
 
   7: `
-  <h2>Semana 7: Uso de Hooks en React</h2>
+  <h1 style="text-align: center;">Semana 7: Uso de Hooks en React</h1>
 
   <h3>Introducción a Hooks</h3>
   <p><strong>Hooks:</strong> Introducidos en React 16.8, permiten a los componentes de tipo función acceder a la gestión de estado y otras características de React. Esto ha llevado a que los componentes de clase sean menos necesarios.</p>
@@ -559,21 +535,16 @@ return &lt;div&gt;Hola, {nombre}!&lt;/div&gt;;</code></pre>
     <li>Implementar un formulario CRUD para una tabla de productos utilizando useContext y useReducer.</li>
   </ol>
 
-  <h3>Ejemplos Aplicados</h3>
-    <div class="modal-imagenes">
-      <div class="img-cuadro">useState<</div>
-      <div class="img-cuadro">useEffect</div>
-       <div class="img-cuadro">useContext</div>
-    </div>
+
   <p><a href="https://github.com/usuario/repositorio-semana7" target="_blank">Ver práctica en GitHub</a></p>
 
   <div class="pdf-controls">
-    <a href="pdfs/semana7.pdf" download>Descargar PDF de clase</a>
+    <a href="docs/semana7.pdf" download>Descargar PDF de clase</a>
   </div>
 `
 ,
       8: `
-        <h2>Semana 8: Pensamiento computacional</h2>
+        <h1 style="text-align: center;">Semana 8: Tema</h1>
         <p>Aprendimos sobre algoritmos, lógica y resolución de problemas.</p>
         <h3>Herramientas:</h3>
         <ul>
@@ -585,7 +556,7 @@ return &lt;div&gt;Hola, {nombre}!&lt;/div&gt;;</code></pre>
       `
             ,
       9: `
-        <h2>Semana 9: Pensamiento computacional</h2>
+        <h2>Semana 9: Tema</h2>
         <p>Aprendimos sobre algoritmos, lógica y resolución de problemas.</p>
         <h3>Herramientas:</h3>
         <ul>
@@ -597,7 +568,7 @@ return &lt;div&gt;Hola, {nombre}!&lt;/div&gt;;</code></pre>
       `
             ,
       10: `
-        <h2>Semana 10: Pensamiento computacional</h2>
+        <h2>Semana 10: Tema</h2>
         <p>Aprendimos sobre algoritmos, lógica y resolución de problemas.</p>
         <h3>Herramientas:</h3>
         <ul>
@@ -608,7 +579,7 @@ return &lt;div&gt;Hola, {nombre}!&lt;/div&gt;;</code></pre>
         <p><a href="https://github.com/usuario/repositorio-semana2" target="_blank">Ver práctica en GitHub</a></p>
       `      ,
       11: `
-        <h2>Semana 11: Pensamiento computacional</h2>
+        <h2>Semana 11: Tema</h2>
         <p>Aprendimos sobre algoritmos, lógica y resolución de problemas.</p>
         <h3>Herramientas:</h3>
         <ul>
@@ -619,7 +590,7 @@ return &lt;div&gt;Hola, {nombre}!&lt;/div&gt;;</code></pre>
         <p><a href="https://github.com/usuario/repositorio-semana2" target="_blank">Ver práctica en GitHub</a></p>
       `      ,
       12: `
-        <h2>Semana 12: Pensamiento computacional</h2>
+        <h2>Semana 12: Tema</h2>
         <p>Aprendimos sobre algoritmos, lógica y resolución de problemas.</p>
         <h3>Herramientas:</h3>
         <ul>
@@ -630,7 +601,7 @@ return &lt;div&gt;Hola, {nombre}!&lt;/div&gt;;</code></pre>
         <p><a href="https://github.com/usuario/repositorio-semana2" target="_blank">Ver práctica en GitHub</a></p>
       `      ,
       13: `
-        <h2>Semana 13: Pensamiento computacional</h2>
+        <h2>Semana 13: Tema</h2>
         <p>Aprendimos sobre algoritmos, lógica y resolución de problemas.</p>
         <h3>Herramientas:</h3>
         <ul>
@@ -640,7 +611,7 @@ return &lt;div&gt;Hola, {nombre}!&lt;/div&gt;;</code></pre>
         <p><a href="https://github.com/usuario/repositorio-semana2" target="_blank">Ver práctica en GitHub</a></p>
       `      ,
       14: `
-        <h2>Semana 14: Pensamiento computacional</h2>
+        <h2>Semana 14: Tema</h2>
         <p>Aprendimos sobre algoritmos, lógica y resolución de problemas.</p>
         <h3>Herramientas:</h3>
         <ul>
@@ -651,7 +622,7 @@ return &lt;div&gt;Hola, {nombre}!&lt;/div&gt;;</code></pre>
       `
             ,
       15: `
-        <h2>Semana 15: Pensamiento computacional</h2>
+        <h2>Semana 15: Tema</h2>
         <p>Aprendimos sobre algoritmos, lógica y resolución de problemas.</p>
         <h3>Herramientas:</h3>
         <ul>
@@ -661,7 +632,7 @@ return &lt;div&gt;Hola, {nombre}!&lt;/div&gt;;</code></pre>
         <p><a href="https://github.com/usuario/repositorio-semana2" target="_blank">Ver práctica en GitHub</a></p>
       `,
       16: `
-        <h2>Semana 16: Pensamiento computacional</h2>
+        <h2>Semana 16: Tema</h2>
         <p>Aprendimos sobre algoritmos, lógica y resolución de problemas.</p>
         <h3>Herramientas:</h3>
         <ul>
@@ -670,7 +641,7 @@ return &lt;div&gt;Hola, {nombre}!&lt;/div&gt;;</code></pre>
         </ul>
         <p><a href="https://github.com/usuario/repositorio-semana2" target="_blank">Ver práctica en GitHub</a></p>
       `
-      // Puedes seguir agregando semanas aquí
+      // Seguir agregando semanas aquí
     };
 
     function abrirModal(semana) {
@@ -700,3 +671,4 @@ return &lt;div&gt;Hola, {nombre}!&lt;/div&gt;;</code></pre>
   </script>
 </body>
 </html>
+
