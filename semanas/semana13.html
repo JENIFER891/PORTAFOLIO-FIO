@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Semana 14 - Desarrollo Backend con Python Flask</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #000000;
+      background-color: #fffcf6a4;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .contenido-semana {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 30px;
+      background-color: #ddd7bf;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+    }
+    
+    .resumen-container {
+      background-color: #f8f9fa;
+      padding: 25px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      overflow: hidden;
+    }
+    
+    .resumen-title {
+      color: white;
+      padding: 16px 25px;
+      border-radius: 8px;
+      margin: -25px -25px 25px -25px;
+      background: linear-gradient(135deg, #000000 0%, #4a3fb8 100%);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      position: relative;
+      overflow: hidden;
+      transform: translateY(0);
+      transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+      animation: slideIn 0.8s ease-out;
+    }
+    
+    .resumen-container:nth-child(odd) .resumen-title {
+      background: linear-gradient(135deg, #000000 0%, #4a3fb8 100%);
+    }
+    
+    .resumen-title:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      background: linear-gradient(135deg, #000000 0%, #7060ff 100%);
+    }
+    
+    .resumen-title::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+      );
+      transition: 0.6s;
+    }
+    
+    .resumen-title:hover::before {
+      left: 100%;
+    }
+    
+    @keyframes slideIn {
+      0% {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(108, 92, 231, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 15px rgba(108, 92, 231, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(108, 92, 231, 0);
+      }
+    }
+    
+    .resumen-title {
+      animation: slideIn 0.8s ease-out, pulse 2s infinite 1s;
+    }
+    
+    .resumen-item {
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .resumen-item:last-child {
+      border-bottom: none;
+    }
+    
+    .resumen-item img {
+      max-width: 80%;
+      display: block;
+      margin: 15px auto;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    .image-caption {
+      text-align: center;
+      font-style: italic;
+      color: #666;
+      font-size: 0.9em;
+      margin-top: 5px;
+      margin-bottom: 15px;
+    }
+    
+    .code-block {
+      background-color: #2d2d2d;
+      color: #f8f8f2;
+      padding: 15px;
+      border-radius: 5px;
+      font-family: 'Courier New', Courier, monospace;
+      overflow-x: auto;
+      margin: 15px 0;
+    }
+    
+    .pdf-controls {
+      margin: 30px 0;
+      text-align: center;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+    
+    .pdf-controls a {
+      display: inline-block;
+      padding: 12px 20px;
+      background-color: #6c5ce7;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .pdf-controls a:hover {
+      background-color: #5649c0;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .ejercicios-btn {
+      background-color: #871dc9 !important;
+      margin-top: 15px;
+      flex: 1 0 100%;
+      max-width: 250px;
+    }
+    
+    h1, h2 {
+      color: #4a3fb8;
+    }
+    
+    h1 {
+      margin-bottom: 30px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #e0d6ff;
+      text-align: center;
+    }
+    
+    h2 {
+      margin-top: 0;
+      color: #5e4b9e;
+    }
+    
+    @media (max-width: 768px) {
+      .contenido-semana {
+        margin: 20px;
+        padding: 20px;
+      }
+      
+      .resumen-item img {
+        max-width: 95%;
+      }
+      
+      .pdf-controls a {
+        padding: 10px 15px;
+        font-size: 0.9em;
+      }
+      
+      .resumen-title {
+        padding: 12px 20px;
+        font-size: 1.1em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>CUADERNO</h1>
+  </header>
+
+  <main class="contenido-semana">
+    <h2>Semana 13: Desarrollo Backend con Python y Flask</h2>
+    <p>Exploramos el desarrollo backend con Python, configuración de Apache para Python y el framework Flask.</p>
+    
+    <div class="resumen-container">
+      <div class="resumen-title">Configuración del Entorno</div>
+      
+      <div class="resumen-item">
+        <h3>Apache HTTP Server</h3>
+        <p>Configuración básica para Apache en Windows:</p>
+        <div class="code-block">
+          # httpd.conf
+          Listen 8080
+          ServerName localhost:8080
+          Define SRVROOT "D:\server\Apache24"
+          DocumentRoot "${SRVROOT}/htdocs"
+        </div>
+        <img src="../img/apache-config.png" alt="Configuración Apache">
+        <div class="image-caption">Archivo de configuración httpd.conf</div>
+      </div>
+      
+      <div class="resumen-item">
+        <h3>Instalación de mod_wsgi</h3>
+        <p>Configuración para integrar Python con Apache:</p>
+        <div class="code-block">
+          pip install mod_wsgi
+          
+          # Configurar variable de entorno
+          set MOD_WSGI_APACHE_ROOTDIR=C:/Apache24
+          
+          # Obtener configuración
+          mod_wsgi-express module-config
+          
+          # Agregar al httpd.conf
+          LoadFile "C:/Python39/python39.dll"
+          LoadModule wsgi_module "C:/Python39/lib/site-packages/mod_wsgi/server/mod_wsgi.cp39-win_amd64.pyd"
+        </div>
+      </div>
+      
+      <div class="resumen-item">
+        <h3>Configuración WSGI</h3>
+        <div class="code-block">
+          WSGIScriptAlias / "C:/webapps/miapp/app.wsgi"
+          
+          &lt;Directory "C:/webapps/miapp"&gt;
+            Require all granted
+          &lt;/Directory&gt;
+        </div>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Fundamentos de Python</div>
+      
+      <div class="resumen-item">
+        <h3>Sintaxis Básica</h3>
+        <div class="code-block">
+          # Comentarios
+          # Esto es un comentario
+          """ Comentario multilínea """
+          
+          # Variables
+          nombre = "Ana"
+          edad = 30
+          
+          # Salida
+          print("Hola", nombre)
+        </div>
+      </div>
+      
+      <div class="resumen-item">
+        <h3>Estructuras de Control</h3>
+        <div class="code-block">
+          # If-elif-else
+          if edad >= 18:
+              print("Mayor de edad")
+          elif edad == 17:
+              print("Casi mayor")
+          else:
+              print("Menor de edad")
+              
+          # Bucles
+          for i in range(3):
+              print("Número:", i)
+              
+          frutas = ["Manzana", "Banana", "Cereza"]
+          for fruta in frutas:
+              print("Fruta:", fruta)
+        </div>
+      </div>
+      
+      <div class="resumen-item">
+        <h3>Programación Orientada a Objetos</h3>
+        <div class="code-block">
+          class Persona:
+              def __init__(self, nombre, edad):
+                  self.nombre = nombre
+                  self.edad = edad
+                  
+              def presentarse(self):
+                  return f"Hola, soy {self.nombre} y tengo {self.edad} años."
+          
+          class Estudiante(Persona):
+              def __init__(self, nombre, edad, carrera):
+                  super().__init__(nombre, edad)
+                  self.carrera = carrera
+                  
+              def estudiar(self):
+                  return f"{self.nombre} está estudiando {self.carrera}."
+          
+          alumno = Estudiante("Laura", 20, "Ingeniería")
+          print(alumno.presentarse())
+          print(alumno.estudiar())
+        </div>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Flask Framework</div>
+      
+      <div class="resumen-item">
+        <h3>Instalación y primera aplicación</h3>
+        <div class="code-block">
+          pip install flask
+          
+          # app.py
+          from flask import Flask
+          
+          app = Flask(__name__)
+          
+          @app.route('/')
+          def hola():
+              return '¡Hola Mundo desde Flask!'
+          
+          if __name__ == '__main__':
+              app.run(debug=True)
+        </div>
+        <img src="../img/flask-hello-world.png" alt="Aplicación Flask">
+        <div class="image-caption">Primera aplicación en Flask</div>
+         <img src="../img/flask-resul.png" alt="Aplicación Flask">
+        <div class="image-caption">Resultado</div>
+          
+      </div>
+      
+      <div class="resumen-item">
+        <h3>Conceptos Clave</h3>
+        <ul>
+          <li><strong>@app.route:</strong> Decorador para definir rutas URL</li>
+          <li><strong>Request:</strong> Objeto para acceder a datos enviados por el cliente</li>
+          <li><strong>Response:</strong> Objeto para enviar respuestas al cliente</li>
+          <li><strong>render_template:</strong> Función para renderizar plantillas HTML</li>
+          <li><strong>Jinja2:</strong> Motor de plantillas para Flask</li>
+        </ul>
+      </div>
+      
+      <div class="resumen-item">
+        <h3>Estructura de Proyecto</h3>
+        <img src="../img/flask-project-structure.png" alt="Estructura Flask">
+        <div class="image-caption">Estructura típica de un proyecto Flask</div>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Ejemplo Práctico: CRUD Estudiantes</div>
+      
+      <div class="resumen-item">
+        <h3>1. Configurar base de datos MySQL</h3>
+        <div class="code-block">
+          CREATE DATABASE escuela;
+          
+          CREATE TABLE estudiantes (
+            IdEstudiante INT PRIMARY KEY AUTO_INCREMENT,
+            nomEstudiante VARCHAR(100),
+            dirEstudiante VARCHAR(150),
+            ciuEstudiante VARCHAR(100)
+          );
+        </div>
+      </div>
+      
+      <div class="resumen-item">
+        <h3>2. Conexión a MySQL (conexion.py)</h3>
+        <div class="code-block">
+          import pymysql
+          
+          def obtener_conexion():
+              return pymysql.connect(
+                  host='localhost',
+                  user='root',
+                  password='tu_contraseña',
+                  db='escuela',
+                  cursorclass=pymysql.cursors.DictCursor
+              )
+        </div>
+      </div>
+      
+      <div class="resumen-item">
+        <h3>3. Aplicación Flask (app.py)</h3>
+        <div class="code-block">
+          from flask import Flask, render_template, request, redirect
+          from conexion import obtener_conexion
+          
+          app = Flask(__name__)
+          
+          @app.route('/')
+          def formulario():
+              return render_template('formulario.html')
+          
+          @app.route('/guardar', methods=['POST'])
+          def guardar():
+              nombre = request.form['nombre']
+              direccion = request.form['direccion']
+              ciudad = request.form['ciudad']
+              
+              conexion = obtener_conexion()
+              with conexion.cursor() as cursor:
+                  cursor.execute('INSERT INTO estudiantes VALUES (NULL, %s, %s, %s)', 
+                                (nombre, direccion, ciudad))
+                  conexion.commit()
+                  conexion.close()
+              return redirect('/')
+        </div>
+      </div>
+      
+      <div class="resumen-item">
+        <h3>4. Plantilla HTML (templates/formulario.html)</h3>
+        <div class="code-block">
+          &lt;!DOCTYPE html&gt;
+          &lt;html&gt;
+          &lt;head&gt;
+              &lt;title&gt;Registro de Estudiantes&lt;/title&gt;
+          &lt;/head&gt;
+          &lt;body&gt;
+              &lt;h1&gt;Agregar Estudiante&lt;/h1&gt;
+              &lt;form action="/guardar" method="post"&gt;
+                  &lt;label&gt;Nombre:&lt;/label&gt;&lt;br&gt;
+                  &lt;input type="text" name="nombre"&gt;&lt;br&gt;
+                  &lt;label&gt;Dirección:&lt;/label&gt;&lt;br&gt;
+                  &lt;input type="text" name="direccion"&gt;&lt;br&gt;
+                  &lt;label&gt;Ciudad:&lt;/label&gt;&lt;br&gt;
+                  &lt;input type="text" name="ciudad"&gt;&lt;br&gt;
+                  &lt;input type="submit" value="Guardar"&gt;
+              &lt;/form&gt;
+          &lt;/body&gt;
+          &lt;/html&gt;
+        </div>
+        <img src="../img/flask-form.png" alt="Formulario Flask">
+        <div class="image-caption">Formulario de registro de estudiantes</div>
+      </div>
+    </div>
+
+    <div class="pdf-controls">
+      <a href="../cuaderno.html">← Volver al cuaderno</a>
+      <a href="../docs/desarrollo-python-s13.pdf" download>Descargar PDF</a>
+      <a href="https://github.com/JENIFER891/Ejercicios.git" target="_blank">Ver en GitHub</a>
+    </div>
+  </main>
+</body>
+</html>

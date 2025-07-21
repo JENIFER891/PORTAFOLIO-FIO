@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Semana 10 - Spring Framework & JSP</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Estilos base se mantienen igual */
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #000000;
+      background-color: #fffcf6a4;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .contenido-semana {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 30px;
+      background-color: #ddd7bf;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+    }
+    
+    .resumen-container {
+      background-color: #f8f9fa;
+      padding: 25px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      overflow: hidden;
+    }
+    
+    /* Nuevos estilos para los títulos con rectángulos animados */
+    .resumen-title {
+      color: white;
+      padding: 16px 25px;
+      border-radius: 8px;
+      margin: -25px -25px 25px -25px;
+      background: linear-gradient(135deg, #000000 0%, #4a3fb8 100%);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      position: relative;
+      overflow: hidden;
+      transform: translateY(0);
+      transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+      animation: slideIn 0.8s ease-out;
+    }
+    
+    .resumen-container:nth-child(odd) .resumen-title {
+      background: linear-gradient(135deg, #000000 0%, #4a3fb8 100%);
+    }
+    
+    .resumen-title:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      background: linear-gradient(135deg, #000000 0%, #7060ff 100%);
+    }
+    
+    .resumen-title::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+      );
+      transition: 0.6s;
+    }
+    
+    .resumen-title:hover::before {
+      left: 100%;
+    }
+    
+    /* Animaciones */
+    @keyframes slideIn {
+      0% {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(108, 92, 231, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 15px rgba(108, 92, 231, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(108, 92, 231, 0);
+      }
+    }
+    
+    .resumen-title {
+      animation: slideIn 0.8s ease-out, pulse 2s infinite 1s;
+    }
+    
+    /* El resto de estilos se mantienen igual */
+    .resumen-item {
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .resumen-item:last-child {
+      border-bottom: none;
+    }
+    
+    .resumen-item img {
+      max-width: 80%;
+      display: block;
+      margin: 15px auto;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    .image-caption {
+      text-align: center;
+      font-style: italic;
+      color: #666;
+      font-size: 0.9em;
+      margin-top: 5px;
+      margin-bottom: 15px;
+    }
+    
+    .code-block {
+      background-color: #f5f5f5;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9em;
+      margin: 15px 0;
+    }
+    
+    .pdf-controls {
+      margin: 30px 0;
+      text-align: center;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+    
+    .pdf-controls a {
+      display: inline-block;
+      padding: 12px 20px;
+      background-color: #6c5ce7;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .pdf-controls a:hover {
+      background-color: #5649c0;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .ejercicios-btn {
+      background-color: #871dc9 !important;
+      margin-top: 15px;
+      flex: 1 0 100%;
+      max-width: 250px;
+    }
+    
+    h1, h2 {
+      color: #4a3fb8;
+    }
+    
+    h1 {
+      margin-bottom: 30px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #e0d6ff;
+    }
+    
+    h2 {
+      margin-top: 0;
+      color: #5e4b9e;
+    }
+    
+    @media (max-width: 768px) {
+      .contenido-semana {
+        margin: 20px;
+        padding: 20px;
+      }
+      
+      .resumen-item img {
+        max-width: 95%;
+      }
+      
+      .pdf-controls a {
+        padding: 10px 15px;
+        font-size: 0.9em;
+      }
+      
+      .resumen-title {
+        padding: 12px 20px;
+        font-size: 1.1em;
+      }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1 style="text-align: center;">CUADERNO</h1>
+</header>
+
+  <main class="contenido-semana">
+    <h2>Semana 10: Spring Framework & JSP</h2>
+    <p>Desarrollo backend con Spring Framework, JSP y gestión de dependencias con Maven.</p>
+    
+    <div class="resumen-container">
+      <div class="resumen-title">Apache Tomcat & Maven</div>
+      
+      <div class="resumen-item">
+        <strong>Apache Tomcat:</strong>
+        <ul>
+          <li>Contenedor de servlets/JSP (implementa Servlet 4.0 y JSP 2.3)</li>
+          <li>Estructura de directorios:
+            <ul>
+              <li><strong>bin/</strong>: Ejecutables y scripts</li>
+              <li><strong>conf/</strong>: Configuración (server.xml)</li>
+              <li><strong>webapps/</strong>: Aplicaciones desplegadas</li>
+              <li><strong>logs/</strong>: Archivos de registro</li>
+            </ul>
+          </li>
+        </ul>
+        <img src="../img/tomcat-directory.jpg" alt="Estructura de Tomcat">
+        <div class="image-caption">Estructura de directorios de Apache Tomcat</div>
+      </div>
+      
+      <div class="resumen-item">
+        <strong>Maven:</strong>
+        <ul>
+          <li>Gestión de dependencias, compilación y empaquetado</li>
+          <li>Archivo <strong>pom.xml</strong> define el proyecto</li>
+          <li>Ciclo de vida: compile → test → package → install → deploy</li>
+          <li>Comandos principales:
+            <div class="code-block">
+              mvn clean install tomcat7:deploy   // Desplegar<br>
+              mvn clean install tomcat7:redeploy // Redesplegar<br>
+              mvn clean install tomcat7:undeploy // Eliminar
+            </div>
+          </li>
+        </ul>
+        <img src="../img/maven-lifecycle.png" alt="Ciclo de vida Maven">
+        <div class="image-caption">Ciclo de vida de Maven</div>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Jakarta Server Pages (JSP)</div>
+      
+      <div class="resumen-item">
+        <strong>Conceptos básicos:</strong>
+        <ul>
+          <li>Tecnología para crear páginas web dinámicas</li>
+          <li>Se traduce a servlets Java en el servidor</li>
+          <li>Sintaxis:
+            <div class="code-block">
+              &lt;% // Scriptlet Java %&gt;<br>
+              &lt;%= // Expresión %&gt;<br>
+              &lt;%! // Declaración %&gt;
+            </div>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="resumen-item">
+        <strong>Ejemplo básico:</strong>
+        <div class="code-block">
+          &lt;%@ page contentType="text/html;charset=UTF-8" %&gt;<br>
+          &lt;html&gt;<br>
+          &lt;body&gt;<br>
+          &nbsp;&nbsp;&lt;h1&gt;Hola desde JSP!&lt;/h1&gt;<br>
+          &nbsp;&nbsp;&lt;p&gt;Fecha: &lt;%= new java.util.Date() %&gt;&lt;/p&gt;<br>
+          &lt;/body&gt;<br>
+          &lt;/html&gt;
+        </div>
+        <img src="../img/spring-boot-logo.png" alt="Procesamiento JSP">
+        <div class="image-caption">Flujo de procesamiento de una página JSP</div>
+      </div>
+      
+      <div class="resumen-item">
+        <strong>Objetos implícitos:</strong>
+        <ul>
+          <li><strong>request</strong>: Objeto HttpServletRequest</li>
+          <li><strong>response</strong>: Objeto HttpServletResponse</li>
+          <li><strong>session</strong>: Objeto HttpSession</li>
+          <li><strong>application</strong>: Objeto ServletContext</li>
+          <li><strong>out</strong>: PrintWriter para enviar salida</li>
+        </ul>
+      </div>
+      
+      <div class="resumen-item">
+        <strong>Ejemplo con MVC:</strong>
+        <img src="../img/jsp-mvc.png" alt="Arquitectura MVC con JSP">
+        <div class="image-caption">Arquitectura MVC implementada con JSP</div>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Spring Framework</div>
+      
+      <div class="resumen-item">
+        <strong>Conceptos clave:</strong>
+        <ul>
+          <li><strong>Beans:</strong> Componentes gestionados por Spring</li>
+          <li><strong>IoC (Inversión de Control):</strong> Spring gestiona el ciclo de vida de los objetos</li>
+          <li><strong>DI (Inyección de Dependencias):</strong> Spring provee las dependencias necesarias</li>
+        </ul>
+        <img src="../img/spring-ioc.png" alt="Inversión de Control">
+        <div class="image-caption">Inversión de Control en Spring</div>
+      </div>
+      
+      <div class="resumen-item">
+        <strong>Tipos de DI:</strong>
+        <ul>
+          <li><strong>Constructor-based:</strong> Para dependencias obligatorias</li>
+          <li><strong>Setter-based:</strong> Para dependencias opcionales</li>
+          <li><strong>Field-based:</strong> No recomendado (usa reflexión)</li>
+        </ul>
+        <div class="code-block">
+          // Ejemplo Constructor-based<br>
+          @Autowired<br>
+          public MyClass(Dependency dep) {<br>
+          &nbsp;&nbsp;this.dep = dep;<br>
+          }
+        </div>
+      </div>
+      
+      <div class="resumen-item">
+        <strong>Configuración XML:</strong>
+        <div class="code-block">
+          &lt;beans&gt;<br>
+          &nbsp;&nbsp;&lt;bean id="estudiante" class="com.universidad.Estudiante"&gt;<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&lt;property name="nombre" value="Juan"/&gt;<br>
+          &nbsp;&nbsp;&lt;/bean&gt;<br>
+          &lt;/beans&gt;
+        </div>
+        <img src="../img/spring-container.png" alt="Spring Container">
+        <div class="image-caption">Spring Container</div>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Spring Boot</div>
+      
+      <div class="resumen-item">
+        <strong>Características:</strong>
+        <ul>
+          <li>Configuración automática</li>
+          <li>Servidor embebido (Tomcat, Jetty)</li>
+          <li>Métricas y health checks</li>
+          <li>Simplifica el desarrollo con Spring</li>
+        </ul>
+        <img src="../img/spring-boot.png" alt="Spring Boot Logo">
+        <div class="image-caption">Spring Boot en https://start.spring.io/</div>
+      </div>
+      
+      <div class="resumen-item">
+        <strong>Arquitectura típica:</strong>
+        <img src="../img/spring-architecture.png" alt="Arquitectura Spring">
+        <div class="image-caption">Arquitectura de una aplicación Spring</div>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Ejercicios Prácticos</div>
+      
+      <div class="resumen-item">
+        <strong>1. API con validación:</strong>
+        <div class="code-block">
+          @GetMapping("/student/{id}/{nota}")<br>
+          public ResponseEntity&lt;Map&lt;String, Object&gt;&gt; validarNota(<br>
+          &nbsp;&nbsp;@PathVariable String id,<br>
+          &nbsp;&nbsp;@PathVariable String nota) {<br>
+          &nbsp;&nbsp;// Validar que son números<br>
+          &nbsp;&nbsp;// Retornar JSON con estado 202<br>
+          }
+        </div>
+      </div>
+      
+      <div class="resumen-item">
+        <strong>2. API con promedio:</strong>
+        <div class="code-block">
+          @GetMapping("/student/{id}")<br>
+          public ResponseEntity&lt;Map&lt;String, Object&gt;&gt; calcularPromedio(<br>
+          &nbsp;&nbsp;@PathVariable String id,<br>
+          &nbsp;&nbsp;@RequestParam double nota1,<br>
+          &nbsp;&nbsp;@RequestParam double nota2,<br>
+          &nbsp;&nbsp;@RequestParam double nota3) {<br>
+          &nbsp;&nbsp;// Calcular promedio<br>
+          &nbsp;&nbsp;// Retornar JSON con resultado<br>
+          }
+        </div>
+      </div>
+      
+      <div class="resumen-item">
+        <strong>3. API REST CRUD:</strong>
+        <img src="../img/spring-data-rest.png" alt="Spring Data REST">
+        <div class="image-caption">Vista en Postman</div>
+      </div>
+    </div>
+
+    <div class="pdf-controls">
+      <a href="../cuaderno.html">← Volver al cuaderno</a>
+      <a href="../docs/desarrollo-spring-s10.pdf" download>Descargar PDF Completo</a>
+      <a href="https://github.com/JENIFER891/Ejercicios.git" target="_blank">Ver en GitHub</a>
+      <a href="https://start.spring.io/" target="_blank" class="ejercicios-btn">Spring Initializr</a>
+    </div>
+  </main>
+</body>
+</html>

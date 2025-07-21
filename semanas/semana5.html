@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Semana 5 - Introducción a React</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #000000;
+      background-color: #fffcf6a4;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .contenido-semana {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 30px;
+      background-color: #ddd7bf;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+    }
+    
+    .resumen-container {
+      background-color: #f8f9fa;
+      padding: 25px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      overflow: hidden;
+    }
+    
+    .resumen-title {
+      color: white;
+      padding: 16px 25px;
+      border-radius: 8px;
+      margin: -25px -25px 25px -25px;
+      background: linear-gradient(135deg, #000000 0%, #4a3fb8 100%);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      position: relative;
+      overflow: hidden;
+      transform: translateY(0);
+      transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+      animation: slideIn 0.8s ease-out;
+    }
+    
+    .resumen-container:nth-child(odd) .resumen-title {
+      background: linear-gradient(135deg, #000000 0%, #4a3fb8 100%);
+    }
+    
+    .resumen-title:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      background: linear-gradient(135deg, #000000 0%, #7060ff 100%);
+    }
+    
+    .resumen-title::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+      );
+      transition: 0.6s;
+    }
+    
+    .resumen-title:hover::before {
+      left: 100%;
+    }
+    
+    @keyframes slideIn {
+      0% {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(108, 92, 231, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 15px rgba(108, 92, 231, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(108, 92, 231, 0);
+      }
+    }
+    
+    .resumen-title {
+      animation: slideIn 0.8s ease-out, pulse 2s infinite 1s;
+    }
+    
+    .resumen-item {
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .resumen-item:last-child {
+      border-bottom: none;
+    }
+    
+    .code-block {
+      background-color: #2d2d2d;
+      color: #f8f8f2;
+      padding: 15px;
+      border-radius: 5px;
+      font-family: 'Courier New', Courier, monospace;
+      overflow-x: auto;
+      margin: 15px 0;
+    }
+    
+    .pdf-controls {
+      margin: 30px 0;
+      text-align: center;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+    
+    .pdf-controls a {
+      display: inline-block;
+      padding: 12px 20px;
+      background-color: #6c5ce7;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .pdf-controls a:hover {
+      background-color: #5649c0;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .ejercicios-btn {
+      background-color: #871dc9 !important;
+      margin-top: 15px;
+      flex: 1 0 100%;
+      max-width: 250px;
+    }
+    
+    h1, h2 {
+      color: #4a3fb8;
+    }
+    
+    h1 {
+      margin-bottom: 30px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #e0d6ff;
+      text-align: center;
+    }
+    
+    h2 {
+      margin-top: 0;
+      color: #5e4b9e;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+    }
+    
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+    
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+    
+    th {
+      background-color: #4a3fb8;
+      color: white;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    
+    @media (max-width: 768px) {
+      .contenido-semana {
+        margin: 20px;
+        padding: 20px;
+      }
+      
+      .pdf-controls a {
+        padding: 10px 15px;
+        font-size: 0.9em;
+      }
+      
+      .resumen-title {
+        padding: 12px 20px;
+        font-size: 1.1em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>CUADERNO</h1>
+  </header>
+
+  <main class="contenido-semana">
+    <h2>Semana 5: Introducción a React</h2>
+    <p>Biblioteca de JavaScript para construir interfaces de usuario interactivas y reutilizables.</p>
+    
+    <div class="resumen-container">
+      <div class="resumen-title">Qué es React</div>
+      
+      <div class="resumen-item">
+        <h3>Definición y características</h3>
+        <ul>
+          <li>Biblioteca de JavaScript para crear interfaces de usuario</li>
+          <li>Se utiliza para construir aplicaciones de una sola página (SPA)</li>
+          <li>Permite crear componentes reutilizables</li>
+          <li>Desarrollado por Facebook y mantenido por la comunidad</li>
+        </ul>
+        
+        <h3>Documentación oficial</h3>
+        <p>
+          <a href="https://es.reactjs.org/" target="_blank">Documentación General</a> | 
+          <a href="https://es.reactjs.org/docs/getting-started.html" target="_blank">Inicio Rápido</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Historia de React</div>
+      
+      <div class="resumen-item">
+        <h3>Linea de tiempo</h3>
+        <ul>
+          <li>2011: Primera implementación en el Newsfeed de Facebook</li>
+          <li>Creado por Jordan Walke, ingeniero de Facebook</li>
+          <li>Julio 2013: Lanzamiento público (v0.3.0)</li>
+          <li>Abril 2022: Versión actual v18.0.0</li>
+        </ul>
+        
+        <h3>Versiones importantes</h3>
+        <table>
+          <tr>
+            <th>Versión</th>
+            <th>Lanzamiento</th>
+            <th>Características principales</th>
+          </tr>
+          <tr>
+            <td>v0.3.0</td>
+            <td>Julio 2013</td>
+            <td>Primera versión pública</td>
+          </tr>
+          <tr>
+            <td>v16.0.0</td>
+            <td>Sept 2017</td>
+            <td>Fiber architecture</td>
+          </tr>
+          <tr>
+            <td>v18.0.0</td>
+            <td>Abril 2022</td>
+            <td>Concurrent rendering</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Desarrollo con React usando CDN</div>
+      
+      <div class="resumen-item">
+        <h3>Incluir React desde CDN</h3>
+        <div class="code-block">
+          &lt;!-- Versión 17 --&gt;
+          &lt;script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin&gt;&lt;/script&gt;
+          &lt;script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin&gt;&lt;/script&gt;
+          &lt;script src="https://unpkg.com/@babel/standalone/babel.min.js"&gt;&lt;/script&gt;
+
+          &lt;!-- Versión 18 --&gt;
+          &lt;script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"&gt;&lt;/script&gt;
+          &lt;script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"&gt;&lt;/script&gt;
+        </div>
+        
+        <h3>Ejemplo básico</h3>
+        <div class="code-block">
+          &lt;!DOCTYPE html&gt;
+          &lt;html lang="en"&gt;
+          &lt;head&gt;
+              &lt;meta charset="UTF-8"&gt;
+              &lt;title&gt;Ejemplo React&lt;/title&gt;
+              &lt;!-- Incluir React --&gt;
+          &lt;/head&gt;
+          &lt;body&gt;
+              &lt;div id="root"&gt;&lt;/div&gt;
+              
+              &lt;script type="text/babel"&gt;
+                function App() {
+                  return &lt;h1&gt;Hola Mundo React!&lt;/h1&gt;;
+                }
+                ReactDOM.render(&lt;App /&gt;, document.getElementById('root'));
+              &lt;/script&gt;
+          &lt;/body&gt;
+          &lt;/html&gt;
+        </div>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Instalación de Node.js</div>
+      
+      <div class="resumen-item">
+        <h3>Pasos para instalar Node.js</h3>
+        <ol>
+          <li>Descargar la versión LTS desde <a href="https://nodejs.org/es/" target="_blank">nodejs.org</a></li>
+          <li>Ejecutar el instalador</li>
+          <li>Seguir el asistente de instalación</li>
+          <li>Aceptar los términos de licencia</li>
+          <li>Seleccionar directorio de instalación</li>
+          <li>Finalizar la instalación</li>
+        </ol>
+        
+        <h3>Verificar instalación</h3>
+        <div class="code-block">
+          # Ver versión de Node
+          node -v
+          
+          # Ver versión de npm
+          npm -v
+        </div>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Herramientas de desarrollo</div>
+      
+      <div class="resumen-item">
+        <h3>Herramientas esenciales</h3>
+        <table>
+          <tr>
+            <th>Herramienta</th>
+            <th>Propósito</th>
+            <th>Enlace</th>
+          </tr>
+          <tr>
+            <td>Webpack</td>
+            <td>Empaquetador de módulos</td>
+            <td><a href="https://webpack.js.org/" target="_blank">webpack.js.org</a></td>
+          </tr>
+          <tr>
+            <td>Babel</td>
+            <td>Transpilador de JavaScript</td>
+            <td><a href="https://babeljs.io/" target="_blank">babeljs.io</a></td>
+          </tr>
+          <tr>
+            <td>ESLint</td>
+            <td>Linter para análisis de código</td>
+            <td><a href="https://eslint.org/" target="_blank">eslint.org</a></td>
+          </tr>
+          <tr>
+            <td>Sass</td>
+            <td>Preprocesador CSS</td>
+            <td><a href="https://sass-lang.com/" target="_blank">sass-lang.com</a></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Herramientas de instalación de React</div>
+      
+      <div class="resumen-item">
+        <h3>Opciones principales</h3>
+        <table>
+          <tr>
+            <th>Herramienta</th>
+            <th>Descripción</th>
+            <th>Enlace</th>
+          </tr>
+          <tr>
+            <td>Create React App</td>
+            <td>Configuración oficial para iniciar proyectos</td>
+            <td><a href="https://create-react-app.dev/" target="_blank">create-react-app.dev</a></td>
+          </tr>
+          <tr>
+            <td>Vite</td>
+            <td>Herramienta rápida y ligera</td>
+            <td><a href="https://vitejs.dev/" target="_blank">vitejs.dev</a></td>
+          </tr>
+          <tr>
+            <td>Next.js</td>
+            <td>Framework para aplicaciones SSR</td>
+            <td><a href="https://nextjs.org/" target="_blank">nextjs.org</a></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Creación de un proyecto React</div>
+      
+      <div class="resumen-item">
+        <h3>Create React App</h3>
+        <div class="code-block">
+          # Crear proyecto
+          npx create-react-app nombreProyecto
+          
+          # Entrar al directorio
+          cd nombreProyecto
+          
+          # Iniciar servidor de desarrollo
+          npm start
+        </div>
+        
+        <h3>Vite</h3>
+        <div class="code-block">
+          # Crear proyecto
+          npm init vite@latest
+          
+          # Seleccionar opciones
+          # Ingresar nombre del proyecto
+          # Seleccionar React
+          
+          # Instalar dependencias
+          cd nombreProyecto
+          npm install
+          
+          # Iniciar servidor
+          npm run dev
+        </div>
+        
+        <h3>Next.js</h3>
+        <div class="code-block">
+          # Crear proyecto
+          npx create-next-app
+          
+          # Ingresar nombre del proyecto
+          cd nombreProyecto
+          
+          # Iniciar servidor
+          npm run dev
+        </div>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Estructura de un proyecto React</div>
+      
+      <div class="resumen-item">
+        <h3>Create React App</h3>
+        <ul>
+          <li>node_modules/ - Dependencias del proyecto</li>
+          <li>public/ - Archivos estáticos</li>
+          <li>src/ - Código fuente principal</li>
+          <li>package.json - Configuración del proyecto</li>
+        </ul>
+        
+        <h3>Vite</h3>
+        <ul>
+          <li>src/ - Contiene los componentes principales</li>
+          <li>vite.config.js - Configuración de Vite</li>
+          <li>index.html - Punto de entrada</li>
+        </ul>
+        
+        <h3>Next.js</h3>
+        <ul>
+          <li>pages/ - Rutas de la aplicación</li>
+          <li>public/ - Archivos estáticos</li>
+          <li>styles/ - Archivos CSS globales</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Laboratorio N° 05</div>
+      
+      <div class="resumen-item">
+        <h3>Ejercicios Prácticos</h3>
+        <ol>
+          <li>Crear un proyecto React usando Create React App</li>
+          <li>Crear un proyecto React usando Vite</li>
+          <li>Explorar la estructura de archivos de ambos proyectos</li>
+          <li>Modificar el componente App para mostrar un mensaje personalizado</li>
+          <li>Investigar la diferencia entre los archivos .js y .jsx</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="pdf-controls">
+      <a href="../cuaderno.html">← Volver al inicio</a>
+      <a href="../docs/semana5.pdf" download>Descargar PDF</a>
+    </div>
+  </main>
+</body>
+</html>

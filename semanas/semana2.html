@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Semana 2 - Visual Studio Code</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #000000;
+      background-color: #fffcf6a4;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .contenido-semana {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 30px;
+      background-color: #ddd7bf;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+    }
+    
+    .resumen-container {
+      background-color: #f8f9fa;
+      padding: 25px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      overflow: hidden;
+    }
+    
+    .resumen-title {
+      color: white;
+      padding: 16px 25px;
+      border-radius: 8px;
+      margin: -25px -25px 25px -25px;
+      background: linear-gradient(135deg, #000000 0%, #4a3fb8 100%);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      position: relative;
+      overflow: hidden;
+      transform: translateY(0);
+      transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+      animation: slideIn 0.8s ease-out;
+    }
+    
+    .resumen-container:nth-child(odd) .resumen-title {
+      background: linear-gradient(135deg, #000000 0%, #4a3fb8 100%);
+    }
+    
+    .resumen-title:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      background: linear-gradient(135deg, #000000 0%, #7060ff 100%);
+    }
+    
+    .resumen-title::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+      );
+      transition: 0.6s;
+    }
+    
+    .resumen-title:hover::before {
+      left: 100%;
+    }
+    
+    @keyframes slideIn {
+      0% {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(108, 92, 231, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 15px rgba(108, 92, 231, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(108, 92, 231, 0);
+      }
+    }
+    
+    .resumen-title {
+      animation: slideIn 0.8s ease-out, pulse 2s infinite 1s;
+    }
+    
+    .resumen-item {
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .resumen-item:last-child {
+      border-bottom: none;
+    }
+    
+    .code-block {
+      background-color: #2d2d2d;
+      color: #f8f8f2;
+      padding: 15px;
+      border-radius: 5px;
+      font-family: 'Courier New', Courier, monospace;
+      overflow-x: auto;
+      margin: 15px 0;
+    }
+    
+    .pdf-controls {
+      margin: 30px 0;
+      text-align: center;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+    
+    .pdf-controls a {
+      display: inline-block;
+      padding: 12px 20px;
+      background-color: #6c5ce7;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .pdf-controls a:hover {
+      background-color: #5649c0;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .ejercicios-btn {
+      background-color: #871dc9 !important;
+      margin-top: 15px;
+      flex: 1 0 100%;
+      max-width: 250px;
+    }
+    
+    h1, h2 {
+      color: #4a3fb8;
+    }
+    
+    h1 {
+      margin-bottom: 30px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #e0d6ff;
+      text-align: center;
+    }
+    
+    h2 {
+      margin-top: 0;
+      color: #5e4b9e;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+    }
+    
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+    
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+    
+    th {
+      background-color: #4a3fb8;
+      color: white;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    
+    @media (max-width: 768px) {
+      .contenido-semana {
+        margin: 20px;
+        padding: 20px;
+      }
+      
+      .pdf-controls a {
+        padding: 10px 15px;
+        font-size: 0.9em;
+      }
+      
+      .resumen-title {
+        padding: 12px 20px;
+        font-size: 1.1em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>CUADERNO</h1>
+  </header>
+
+  <main class="contenido-semana">
+    <h2>Semana 2: Visual Studio Code</h2>
+    <p>Introducción al editor de código Visual Studio Code y sus funcionalidades principales.</p>
+    
+    <div class="resumen-container">
+      <div class="resumen-title">Introducción a VSCode</div>
+      
+      <div class="resumen-item">
+        <h3>Descarga e Instalación</h3>
+        <p>Visual Studio Code es un editor de código fuente ligero pero poderoso disponible para Windows, macOS y Linux.</p>
+        <div class="code-block">
+          # Descargar desde:
+          http://code.visualstudio.com
+        </div>
+        
+        <h3>Primeros Pasos</h3>
+        <ul>
+          <li><strong>Nuevo archivo:</strong> Archivo → Nuevo Archivo</li>
+          <li><strong>Abrir archivo:</strong> Archivo → Abrir Archivo</li>
+          <li><strong>Abrir carpeta:</strong> Archivo → Abrir Carpeta</li>
+          <li><strong>Archivos recientes:</strong> Mostrados en la pantalla de inicio</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Interfaz de VSCode</div>
+      
+      <div class="resumen-item">
+        <h3>Pantalla Principal</h3>
+        <ul>
+          <li><strong>Barra de menús:</strong> Archivo, Editar, Selección, Ver, etc.</li>
+          <li><strong>Barra lateral:</strong> Explorador de archivos, búsqueda, control de versiones, etc.</li>
+          <li><strong>Barra de estado:</strong> Información sobre el archivo actual, rama Git, etc.</li>
+          <li><strong>Panel:</strong> Terminal, problemas, salida, consola de depuración</li>
+        </ul>
+        
+        <h3>Áreas Principales</h3>
+        <ul>
+          <li><strong>Explorador:</strong> Navegación por archivos y carpetas</li>
+          <li><strong>Editor:</strong> Área principal para editar código</li>
+          <li><strong>Terminal integrada:</strong> Para ejecutar comandos</li>
+          <li><strong>Paleta de comandos:</strong> Acceso rápido a funciones (Ctrl+Shift+P)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Funcionalidades Clave</div>
+      
+      <div class="resumen-item">
+        <h3>Paleta de Comandos (Ctrl+Shift+P)</h3>
+        <p>Permite acceder rápidamente a todas las funciones de VSCode:</p>
+        <ul>
+          <li>Crear nueva terminal</li>
+          <li>Añadir comentarios de línea</li>
+          <li>Eliminar etiquetas con Emmet</li>
+          <li>Configurar extensiones</li>
+        </ul>
+        
+        <h3>Emmet</h3>
+        <p>Plugin para generación rápida de código HTML y CSS mediante abreviaciones:</p>
+        <table>
+          <tr>
+            <th>Operador</th>
+            <th>Significado</th>
+            <th>Ejemplo</th>
+          </tr>
+          <tr>
+            <td>></td>
+            <td>Hijo (dentro de...)</td>
+            <td>div>p → &lt;div&gt;&lt;p&gt;&lt;/p&gt;&lt;/div&gt;</td>
+          </tr>
+          <tr>
+            <td>+</td>
+            <td>Hermano (al lado de...)</td>
+            <td>div+p → &lt;div&gt;&lt;/div&gt;&lt;p&gt;&lt;/p&gt;</td>
+          </tr>
+          <tr>
+            <td>^</td>
+            <td>Salir de la etiqueta actual</td>
+            <td>div>p^span → &lt;div&gt;&lt;p&gt;&lt;/p&gt;&lt;/div&gt;&lt;span&gt;&lt;/span&gt;</td>
+          </tr>
+          <tr>
+            <td>*</td>
+            <td>Multiplicador</td>
+            <td>ul>li*3 → &lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt;</td>
+          </tr>
+          <tr>
+            <td>.</td>
+            <td>Clase</td>
+            <td>div.container → &lt;div class="container"&gt;&lt;/div&gt;</td>
+          </tr>
+          <tr>
+            <td>#</td>
+            <td>ID</td>
+            <td>div#main → &lt;div id="main"&gt;&lt;/div&gt;</td>
+          </tr>
+        </table>
+        </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Atajos de Teclado</div>
+      
+      <div class="resumen-item">
+        <h3>Generales</h3>
+        <table>
+          <tr>
+            <th>Comando</th>
+            <th>Acción</th>
+          </tr>
+          <tr>
+            <td>Ctrl+Shift+P, F1</td>
+            <td>Mostrar paleta de comandos</td>
+          </tr>
+          <tr>
+            <td>Ctrl+P</td>
+            <td>Abrir rápido archivo</td>
+          </tr>
+          <tr>
+            <td>Ctrl+,</td>
+            <td>Abrir configuración de usuario</td>
+          </tr>
+          <tr>
+            <td>Ctrl+K Ctrl+S</td>
+            <td>Atajos de teclado</td>
+          </tr>
+        </table>
+        
+        <h3>Edición Básica</h3>
+        <table>
+          <tr>
+            <th>Comando</th>
+            <th>Acción</th>
+          </tr>
+          <tr>
+            <td>Ctrl+X</td>
+            <td>Cortar línea</td>
+          </tr>
+          <tr>
+            <td>Ctrl+C</td>
+            <td>Copiar línea</td>
+          </tr>
+          <tr>
+            <td>Alt+↑/↓</td>
+            <td>Mover línea arriba/abajo</td>
+          </tr>
+          <tr>
+            <td>Ctrl+Shift+K</td>
+            <td>Eliminar línea</td>
+          </tr>
+          <tr>
+            <td>Ctrl+Enter</td>
+            <td>Insertar línea abajo</td>
+          </tr>
+          <tr>
+            <td>Ctrl+Shift+Enter</td>
+            <td>Insertar línea arriba</td>
+          </tr>
+        </table>
+        
+        <h3>Búsqueda y Reemplazo</h3>
+        <table>
+          <tr>
+            <th>Comando</th>
+            <th>Acción</th>
+          </tr>
+          <tr>
+            <td>Ctrl+F</td>
+            <td>Buscar</td>
+          </tr>
+          <tr>
+            <td>Ctrl+H</td>
+            <td>Reemplazar</td>
+          </tr>
+          <tr>
+            <td>F3/Shift+F3</td>
+            <td>Siguiente/anterior coincidencia</td>
+          </tr>
+          <tr>
+            <td>Alt+Enter</td>
+            <td>Seleccionar todas las coincidencias</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Laboratorio N° 02</div>
+      
+      <div class="resumen-item">
+        <h3>Ejercicios Prácticos</h3>
+        <ol>
+          <li>Explorar la interfaz de VSCode y sus diferentes paneles</li>
+          <li>Practicar el uso de la paleta de comandos (Ctrl+Shift+P)</li>
+          <li>Crear fragmentos de código HTML usando Emmet</li>
+          <li>Practicar los atajos de teclado más importantes</li>
+          <li>Configurar la terminal integrada para usar Git</li>
+        </ol>
+        
+        
+      </div>
+    </div>
+
+    <div class="pdf-controls">
+      <a href="../cuaderno.html">← Volver al inicio</a>
+      <a href="../docs/semana2.pdf" download>Descargar PDF</a>
+    </div>
+  </main>
+</body>
+</html>

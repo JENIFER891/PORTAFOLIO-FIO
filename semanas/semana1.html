@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Semana 1 - Fundamentos de Aplicaciones Web</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #000000;
+      background-color: #fffcf6a4;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .contenido-semana {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 30px;
+      background-color: #ddd7bf;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+    }
+    
+    .resumen-container {
+      background-color: #f8f9fa;
+      padding: 25px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      overflow: hidden;
+    }
+    
+    .resumen-title {
+      color: white;
+      padding: 16px 25px;
+      border-radius: 8px;
+      margin: -25px -25px 25px -25px;
+      background: linear-gradient(135deg, #000000 0%, #4a3fb8 100%);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      position: relative;
+      overflow: hidden;
+      transform: translateY(0);
+      transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+      animation: slideIn 0.8s ease-out;
+    }
+    
+    .resumen-container:nth-child(odd) .resumen-title {
+      background: linear-gradient(135deg, #000000 0%, #4a3fb8 100%);
+    }
+    
+    .resumen-title:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      background: linear-gradient(135deg, #000000 0%, #7060ff 100%);
+    }
+    
+    .resumen-title::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+      );
+      transition: 0.6s;
+    }
+    
+    .resumen-title:hover::before {
+      left: 100%;
+    }
+    
+    @keyframes slideIn {
+      0% {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(108, 92, 231, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 15px rgba(108, 92, 231, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(108, 92, 231, 0);
+      }
+    }
+    
+    .resumen-title {
+      animation: slideIn 0.8s ease-out, pulse 2s infinite 1s;
+    }
+    
+    .resumen-item {
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .resumen-item:last-child {
+      border-bottom: none;
+    }
+    
+    .code-block {
+      background-color: #2d2d2d;
+      color: #f8f8f2;
+      padding: 15px;
+      border-radius: 5px;
+      font-family: 'Courier New', Courier, monospace;
+      overflow-x: auto;
+      margin: 15px 0;
+    }
+    
+    .pdf-controls {
+      margin: 30px 0;
+      text-align: center;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+    
+    .pdf-controls a {
+      display: inline-block;
+      padding: 12px 20px;
+      background-color: #6c5ce7;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .pdf-controls a:hover {
+      background-color: #5649c0;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .ejercicios-btn {
+      background-color: #871dc9 !important;
+      margin-top: 15px;
+      flex: 1 0 100%;
+      max-width: 250px;
+    }
+    
+    h1, h2 {
+      color: #4a3fb8;
+    }
+    
+    h1 {
+      margin-bottom: 30px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #e0d6ff;
+      text-align: center;
+    }
+    
+    h2 {
+      margin-top: 0;
+      color: #5e4b9e;
+    }
+    
+    @media (max-width: 768px) {
+      .contenido-semana {
+        margin: 20px;
+        padding: 20px;
+      }
+      
+      .pdf-controls a {
+        padding: 10px 15px;
+        font-size: 0.9em;
+      }
+      
+      .resumen-title {
+        padding: 12px 20px;
+        font-size: 1.1em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>CUADERNO</h1>
+  </header>
+
+  <main class="contenido-semana">
+    <h2>Semana 1: Fundamentos de Aplicaciones Web</h2>
+    <p>Introducción a los conceptos básicos del desarrollo web y tecnologías relacionadas.</p>
+    
+    <div class="resumen-container">
+      <div class="resumen-title">Requisitos y Recursos</div>
+      
+      <div class="resumen-item">
+        <h3>Recursos Tecnológicos</h3>
+        <ul>
+          <li>Microsoft Teams - Pertenecer al equipo de la asignatura</li>
+          <li>Grupo de WhatsApp - Para comunicados y envío de documentos</li>
+          <li>Cuenta en GitHub con sitio web publicado (Portafolio)</li>
+          <li>Laptop propia para laboratorios y exámenes</li>
+        </ul>
+        
+        <h3>Responsabilidades del Estudiante</h3>
+        <ul>
+          <li>Contar con los recursos tecnológicos necesarios</li>
+          <li>Entregar laboratorios y exámenes a tiempo</li>
+          <li>Pertenecer a un grupo de trabajo</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Portafolio Electrónico</div>
+      
+      <div class="resumen-item">
+        <h3>Estructura del Portafolio</h3>
+        <ul>
+          <li><strong>Portada:</strong> Título, bienvenida, presentación, estudios y experiencia</li>
+          <li><strong>Información sobre mí</strong></li>
+          <li><strong>Proyectos concluidos</strong></li>
+          <li><strong>Cuaderno:</strong>
+            <ul>
+              <li>Describir temas aprendidos con sus propias palabras</li>
+              <li>Ejercicios de laboratorio y resultados</li>
+              <li>Reflexión sobre lo aprendido y cómo se aprendió</li>
+            </ul>
+          </li>
+          <li><strong>Reflexión final:</strong> Texto metacognitivo sobre el aprendizaje durante el curso</li>
+          <li><strong>Bibliografía:</strong> Libros y URLs (no videos)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Tecnologías de Desarrollo Web</div>
+      
+      <div class="resumen-item">
+        <h3>Open Web Platform</h3>
+        <p>Colección de tecnologías abiertas y estándares desarrollados por organismos como W3C, Unicode Consortium, IETF y ECMA International.</p>
+        
+        <h4>Principios:</h4>
+        <ul>
+          <li>Evitar ser controlado por ninguna empresa</li>
+          <li>Transparencia en todos los niveles</li>
+          <li>Capacidad de integración con fuentes externas</li>
+          <li>Documentación y especificaciones abiertas</li>
+          <li>Libertad de uso</li>
+          <li>Compartir conocimiento (blogs, conferencias)</li>
+        </ul>
+      </div>
+      
+      <div class="resumen-item">
+        <h3>Estándares Internacionales</h3>
+        
+        <h4>Básicos:</h4>
+        <ul>
+          <li><strong>HTTP/HTTPS:</strong> Protocolo para transmisión de documentos hipermedia</li>
+          <li><strong>HTML:</strong> Lenguaje para describir y definir contenido web</li>
+          <li><strong>CSS:</strong> Hojas de estilo para presentación del contenido</li>
+          <li><strong>XML:</strong> Lenguaje de marcado para intercambiar información estructurada</li>
+          <li><strong>JavaScript:</strong> Lenguaje de programación para crear sitios interactivos</li>
+        </ul>
+        
+        <h4>Complementarios:</h4>
+        <ul>
+          <li><strong>Web APIs:</strong> Para manipular DOM, reproducir multimedia, gráficos 3D</li>
+          <li><strong>SVG:</strong> Gráficos vectoriales escalables</li>
+          <li><strong>WebGL:</strong> API para gráficos 3D/2D en canvas</li>
+          <li><strong>MathML:</strong> Lenguaje para mostrar ecuaciones matemáticas</li>
+          <li><strong>ARIA:</strong> Para accesibilidad web</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Funcionamiento de la Web</div>
+      
+      <div class="resumen-item">
+        <h3>DNS - Sistema de Nombres de Dominio</h3>
+        <p>El DNS es el "directorio telefónico" de Internet que traduce nombres de dominio (como www.uncp.edu.pe) a direcciones IP para que los navegadores puedan cargar los recursos.</p>
+        
+        <h3>Proceso de resolución DNS:</h3>
+        <ol>
+          <li>Usuario escribe URL (ej. www.google.com)</li>
+          <li>Consulta al servidor DNS raíz</li>
+          <li>Redirección al servidor TLD (.com)</li>
+          <li>Redirección al servidor de nombres del dominio</li>
+          <li>Obtención de la dirección IP</li>
+          <li>Conexión al servidor web</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Desarrollo Frontend y Backend</div>
+      
+      <div class="resumen-item">
+        <h3>Frontend</h3>
+        <p>Parte de la programación web que se enfoca en la interfaz y experiencia del usuario (HTML, CSS, JavaScript).</p>
+        
+        <h4>Herramientas:</h4>
+        <ul>
+          <li><strong>Frameworks CSS:</strong> Bootstrap, Foundation, Bulma, Materialize</li>
+          <li><strong>Frameworks JS:</strong> React, Vue, Angular, Ember</li>
+          <li><strong>Preprocesadores:</strong> Sass, Less</li>
+          <li><strong>Build Tools:</strong> Webpack, Gulp</li>
+        </ul>
+      </div>
+      
+      <div class="resumen-item">
+        <h3>Backend</h3>
+        <p>Parte que se encarga de la lógica, base de datos y funcionamiento interno de la aplicación.</p>
+        
+        <h4>Tecnologías:</h4>
+        <ul>
+          <li><strong>Lenguajes:</strong> PHP, Python, Java, Node.js, Ruby</li>
+          <li><strong>Frameworks:</strong> Laravel, Django, Spring, Express</li>
+          <li><strong>Bases de datos:</strong> MySQL, PostgreSQL, MongoDB</li>
+          <li><strong>Servidores web:</strong> Apache, Nginx, Node.js</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Diseño UX/UI</div>
+      
+      <div class="resumen-item">
+        <h3>Diferencias entre UX y UI</h3>
+        
+        <h4>User Experience (UX):</h4>
+        <ul>
+          <li>Arquitectura de la información</li>
+          <li>Definición de necesidades del usuario</li>
+          <li>Wireframes y prototipos</li>
+          <li>Accesibilidad</li>
+          <li>Enfoque analítico</li>
+        </ul>
+        
+        <h4>User Interface (UI):</h4>
+        <ul>
+          <li>Identidad visual</li>
+          <li>Guía de estilos</li>
+          <li>Color y tipografía</li>
+          <li>Bocetos</li>
+          <li>Enfoque creativo</li>
+        </ul>
+      </div>
+      
+      <div class="resumen-item">
+        <h3>Herramientas de diseño</h3>
+        <p><strong>Figma:</strong> Herramienta de diseño colaborativo para interfaces web y móviles.</p>
+        <p>Permite trabajar en equipo en tiempo real con prototipos interactivos.</p>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Práctica de Laboratorio</div>
+      
+      <div class="resumen-item">
+        <h3>Manejo de Visual Studio Code</h3>
+        <ol>
+          <li>Reconocimiento de la interfaz y áreas de trabajo</li>
+          <li>Uso de la paleta de comandos (Ctrl+Shift+P)</li>
+          <li>Uso de la terminal integrada para comandos Git</li>
+          <li>Emmet para generación rápida de código</li>
+          <li>Creación y uso de fragmentos de código</li>
+          <li>Atajos de teclado esenciales</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="pdf-controls">
+      <a href="../cuaderno.html">← Volver al inicio</a>
+      <a href="../docs/semana1.pdf" download>Descargar PDF</a>
+     </div>
+  </main>
+</body>
+</html>

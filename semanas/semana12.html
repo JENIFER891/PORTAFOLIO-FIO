@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Semana 12 - Desarrollo Backend PHP Laravel</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #000000;
+      background-color: #fffcf6a4;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .contenido-semana {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 30px;
+      background-color: #ddd7bf;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+    }
+    
+    .resumen-container {
+      background-color: #f8f9fa;
+      padding: 25px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      overflow: hidden;
+    }
+    
+    .resumen-title {
+      color: white;
+      padding: 16px 25px;
+      border-radius: 8px;
+      margin: -25px -25px 25px -25px;
+      background: linear-gradient(135deg, #000000 0%, #4a3fb8 100%);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      position: relative;
+      overflow: hidden;
+      transform: translateY(0);
+      transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+      animation: slideIn 0.8s ease-out;
+    }
+    
+    .resumen-container:nth-child(odd) .resumen-title {
+      background: linear-gradient(135deg, #000000 0%, #4a3fb8 100%);
+    }
+    
+    .resumen-title:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      background: linear-gradient(135deg, #000000 0%, #7060ff 100%);
+    }
+    
+    .resumen-title::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+      );
+      transition: 0.6s;
+    }
+    
+    .resumen-title:hover::before {
+      left: 100%;
+    }
+    
+    @keyframes slideIn {
+      0% {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(108, 92, 231, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 15px rgba(108, 92, 231, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(108, 92, 231, 0);
+      }
+    }
+    
+    .resumen-title {
+      animation: slideIn 0.8s ease-out, pulse 2s infinite 1s;
+    }
+    
+    .resumen-item {
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .resumen-item:last-child {
+      border-bottom: none;
+    }
+    
+    .resumen-item img {
+      max-width: 80%;
+      display: block;
+      margin: 15px auto;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    .image-caption {
+      text-align: center;
+      font-style: italic;
+      color: #666;
+      font-size: 0.9em;
+      margin-top: 5px;
+      margin-bottom: 15px;
+    }
+    
+    .code-block {
+      background-color: #2d2d2d;
+      color: #f8f8f2;
+      padding: 15px;
+      border-radius: 5px;
+      font-family: 'Courier New', Courier, monospace;
+      overflow-x: auto;
+      margin: 15px 0;
+    }
+    
+    .pdf-controls {
+      margin: 30px 0;
+      text-align: center;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+    
+    .pdf-controls a {
+      display: inline-block;
+      padding: 12px 20px;
+      background-color: #6c5ce7;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .pdf-controls a:hover {
+      background-color: #5649c0;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .ejercicios-btn {
+      background-color: #871dc9 !important;
+      margin-top: 15px;
+      flex: 1 0 100%;
+      max-width: 250px;
+    }
+    
+    h1, h2 {
+      color: #4a3fb8;
+    }
+    
+    h1 {
+      margin-bottom: 30px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #e0d6ff;
+      text-align: center;
+    }
+    
+    h2 {
+      margin-top: 0;
+      color: #5e4b9e;
+    }
+    
+    @media (max-width: 768px) {
+      .contenido-semana {
+        margin: 20px;
+        padding: 20px;
+      }
+      
+      .resumen-item img {
+        max-width: 95%;
+      }
+      
+      .pdf-controls a {
+        padding: 10px 15px;
+        font-size: 0.9em;
+      }
+      
+      .resumen-title {
+        padding: 12px 20px;
+        font-size: 1.1em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>CUADERNO</h1>
+  </header>
+
+  <main class="contenido-semana">
+    <h2>Semana 12: Desarrollo Backend con PHP y Laravel</h2>
+    <p>Exploramos el desarrollo backend con PHP, Apache y el framework Laravel.</p>
+    
+    <div class="resumen-container">
+      <div class="resumen-title">Configuración del Entorno</div>
+      
+      <div class="resumen-item">
+        <h3>Apache HTTP Server</h3>
+        <p>Apache es el servidor web más popular para entornos PHP. Configuración básica:</p>
+        <div class="code-block">
+          # httpd.conf
+          Listen 8080
+          ServerName localhost:8080
+          Define SRVROOT "D:\server\Apache24"
+          DocumentRoot "${SRVROOT}/htdocs"
+        </div>
+        <img src="../img/apache-config.png" alt="Configuración Apache">
+        <div class="image-caption">Archivo de configuración httpd.conf</div>
+      </div>
+      
+      <div class="resumen-item">
+        <h3>Instalación de PHP</h3>
+        <p>Configuración del archivo php.ini:</p>
+        <div class="code-block">
+          extension_dir = "ext"
+          extension=mysqli
+          extension=curl
+          extension=fileinfo
+          extension=pdo_mysql
+        </div>
+        <p>Verificar instalación con: <code>php -v</code></p>
+      </div>
+      
+      <div class="resumen-item">
+        <h3>Composer - Gestor de dependencias</h3>
+        <p>Instalación y verificación:</p>
+        <div class="code-block">
+          # Instalar Composer
+          php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+          php composer-setup.php
+          
+          # Verificar
+          composer -V
+        </div>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Fundamentos de PHP</div>
+      
+      <div class="resumen-item">
+        <h3>Sintaxis Básica</h3>
+        <div class="code-block">
+          &lt;?php
+          // Comentario de una línea
+          /* Comentario
+          multilínea */
+          
+          $variable = "Valor";
+          echo "Hola " . $variable;
+          ?&gt;
+        </div>
+      </div>
+      
+      <div class="resumen-item">
+        <h3>Estructuras de Control</h3>
+        <div class="code-block">
+          // If-else
+          if ($edad >= 18) {
+            echo "Mayor de edad";
+          } elseif ($edad == 17) {
+            echo "Casi mayor";
+          } else {
+            echo "Menor de edad";
+          }
+          
+          // Switch
+          switch ($color) {
+            case "rojo": echo "Color rojo"; break;
+            case "azul": echo "Color azul"; break;
+            default: echo "Otro color";
+          }
+        </div>
+      </div>
+      
+      <div class="resumen-item">
+        <h3>Bucles</h3>
+        <div class="code-block">
+          // For
+          for ($i = 0; $i < 5; $i++) {
+            echo "Número: $i&lt;br&gt;";
+          }
+          
+          // Foreach
+          $frutas = ["Manzana", "Banana", "Cereza"];
+          foreach ($frutas as $fruta) {
+            echo "Fruta: $fruta&lt;br&gt;";
+          }
+        </div>
+      </div>
+      
+      <div class="resumen-item">
+        <h3>Funciones</h3>
+        <div class="code-block">
+          function saludar($nombre) {
+            return "¡Hola, $nombre!";
+          }
+          
+          echo saludar("Juan");
+        </div>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Laravel Framework</div>
+      
+      <div class="resumen-item">
+        <h3>Instalación de Laravel</h3>
+        <div class="code-block">
+          # Crear nuevo proyecto
+          composer create-project laravel/laravel mi-proyecto
+          
+          # Iniciar servidor
+          cd mi-proyecto
+          php artisan serve
+        </div>
+        <img src="../img/laravel-install.png" alt="Instalación Laravel">
+        <div class="image-caption">Proceso de instalación de Laravel</div>
+      </div>
+      
+      <div class="resumen-item">
+        <h3>Estructura de Directorios</h3>
+        <ul>
+          <li><strong>app/</strong>: Contiene la lógica de la aplicación (controladores, modelos)</li>
+          <li><strong>routes/</strong>: Definición de rutas (web.php, api.php)</li>
+          <li><strong>resources/</strong>: Vistas y assets (CSS, JS)</li>
+          <li><strong>database/</strong>: Migraciones, factories y seeders</li>
+          <li><strong>config/</strong>: Archivos de configuración</li>
+        </ul>
+        <img src="../img/laravel-structure.jpg" alt="Estructura Laravel">
+        <div class="image-caption">Estructura de directorios en Laravel</div>
+      </div>
+      
+      <div class="resumen-item">
+        <h3>Conceptos Clave</h3>
+        <p><strong>Eloquent ORM:</strong> Sistema de mapeo objeto-relacional para trabajar con bases de datos</p>
+        <p><strong>Blade:</strong> Motor de plantillas para crear vistas</p>
+        <p><strong>Artisan:</strong> CLI para automatizar tareas</p>
+        <p><strong>Middleware:</strong> Filtros para peticiones HTTP</p>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Ejemplo Práctico: CRUD Estudiantes</div>
+      
+      <div class="resumen-item">
+        <h3>1. Crear proyecto y configurar base de datos</h3>
+        <div class="code-block">
+          laravel new estudiantes-app
+          cd estudiantes-app
+          
+          # Configurar .env
+          DB_DATABASE=academico
+          DB_USERNAME=root
+          DB_PASSWORD=tu_contraseña
+        </div>
+      </div>
+      
+      <div class="resumen-item">
+        <h3>2. Crear migración para modelo Estudiante</h3>
+        <div class="code-block">
+          php artisan make:model Estudiante -m
+          
+          # Editar migración
+          Schema::create('estudiantes', function (Blueprint $table) {
+            $table->id('idEstudiante');
+            $table->string('nomEstudiante');
+            $table->string('dirEstudiante');
+            $table->string('ciuEstudiante');
+            $table->timestamps();
+          });
+          
+          # Ejecutar migración
+          php artisan migrate
+        </div>
+      </div>
+      
+      <div class="resumen-item">
+        <h3>3. Configurar Tailwind CSS</h3>
+        <div class="code-block">
+          npm install -D tailwindcss@3 postcss autoprefixer
+          npx tailwindcss init -p
+          
+          # Configurar tailwind.config.js
+          content: [
+            "./resources/**/*.blade.php",
+            "./resources/**/*.js",
+            "./resources/**/*.vue",
+          ],
+          
+          # Añadir a resources/css/app.css
+          @tailwind base;
+          @tailwind components;
+          @tailwind utilities;
+          
+          # Compilar
+          npm install
+          npm run dev
+        </div>
+      </div>
+      
+      <div class="resumen-item">
+        <h3>4. Crear rutas, controlador y vista</h3>
+        <div class="code-block">
+          # routes/web.php
+          use App\Http\Controllers\EstudianteController;
+          
+          Route::get('/', [EstudianteController::class, 'create']);
+          Route::post('/guardar', [EstudianteController::class, 'store']);
+          
+          # Controlador
+          php artisan make:controller EstudianteController
+          
+          public function create() {
+            return view('formulario');
+          }
+          
+          public function store(Request $request) {
+            Estudiante::create([
+              'nomEstudiante' => $request->nombre,
+              'dirEstudiante' => $request->direccion,
+              'ciuEstudiante' => $request->ciudad
+            ]);
+            return redirect('/')->with('mensaje', 'Estudiante registrado');
+          }
+        </div>
+        <img src="../img/laravel-form.png" alt="Formulario Laravel">
+        <div class="image-caption">Formulario de registro</div>
+      </div>
+    </div>
+
+    <div class="pdf-controls">
+      <a href="../cuaderno.html">← Volver al cuaderno</a>
+      <a href="../docs/DesarrolloBackendPHPLaravelS12.pdf" download>Descargar PDF</a>
+      <a href="https://github.com/JENIFER891/Ejercicios.git" target="_blank">Ver en GitHub</a>
+    </div>
+  </main>
+</body>
+</html>

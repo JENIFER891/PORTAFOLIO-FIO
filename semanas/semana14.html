@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Semana 14 - Sistemas Inteligentes en Python</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #000000;
+      background-color: #fffcf6a4;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .contenido-semana {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 30px;
+      background-color: #ddd7bf;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+    }
+    
+    .resumen-container {
+      background-color: #f8f9fa;
+      padding: 25px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      overflow: hidden;
+    }
+    
+    .resumen-title {
+      color: white;
+      padding: 16px 25px;
+      border-radius: 8px;
+      margin: -25px -25px 25px -25px;
+      background: linear-gradient(135deg, #000000 0%, #4a3fb8 100%);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      position: relative;
+      overflow: hidden;
+      transform: translateY(0);
+      transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+      animation: slideIn 0.8s ease-out;
+    }
+    
+    .resumen-container:nth-child(odd) .resumen-title {
+      background: linear-gradient(135deg, #000000 0%, #4a3fb8 100%);
+    }
+    
+    .resumen-title:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      background: linear-gradient(135deg, #000000 0%, #7060ff 100%);
+    }
+    
+    .resumen-title::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+      );
+      transition: 0.6s;
+    }
+    
+    .resumen-title:hover::before {
+      left: 100%;
+    }
+    
+    @keyframes slideIn {
+      0% {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(108, 92, 231, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 15px rgba(108, 92, 231, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(108, 92, 231, 0);
+      }
+    }
+    
+    .resumen-title {
+      animation: slideIn 0.8s ease-out, pulse 2s infinite 1s;
+    }
+    
+    .resumen-item {
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .resumen-item:last-child {
+      border-bottom: none;
+    }
+    
+    .resumen-item img {
+      max-width: 80%;
+      display: block;
+      margin: 15px auto;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    .image-caption {
+      text-align: center;
+      font-style: italic;
+      color: #666;
+      font-size: 0.9em;
+      margin-top: 5px;
+      margin-bottom: 15px;
+    }
+    
+    .code-block {
+      background-color: #2d2d2d;
+      color: #f8f8f2;
+      padding: 15px;
+      border-radius: 5px;
+      font-family: 'Courier New', Courier, monospace;
+      overflow-x: auto;
+      margin: 15px 0;
+    }
+    
+    .pdf-controls {
+      margin: 30px 0;
+      text-align: center;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+    
+    .pdf-controls a {
+      display: inline-block;
+      padding: 12px 20px;
+      background-color: #6c5ce7;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .pdf-controls a:hover {
+      background-color: #5649c0;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .ejercicios-btn {
+      background-color: #871dc9 !important;
+      margin-top: 15px;
+      flex: 1 0 100%;
+      max-width: 250px;
+    }
+    
+    h1, h2 {
+      color: #4a3fb8;
+    }
+    
+    h1 {
+      margin-bottom: 30px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #e0d6ff;
+      text-align: center;
+    }
+    
+    h2 {
+      margin-top: 0;
+      color: #5e4b9e;
+    }
+    
+    @media (max-width: 768px) {
+      .contenido-semana {
+        margin: 20px;
+        padding: 20px;
+      }
+      
+      .resumen-item img {
+        max-width: 95%;
+      }
+      
+      .pdf-controls a {
+        padding: 10px 15px;
+        font-size: 0.9em;
+      }
+      
+      .resumen-title {
+        padding: 12px 20px;
+        font-size: 1.1em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>CUADERNO</h1>
+  </header>
+
+  <main class="contenido-semana">
+    <h2>Semana 14: Sistemas Inteligentes en Python</h2>
+    <p>Desarrollo de sistemas inteligentes con Python, Flask y Django - Algoritmos de IA y modelos de aprendizaje</p>
+    
+    <div class="resumen-container">
+      <div class="resumen-title">1. Definición y Ámbitos de Aplicación</div>
+      
+      <div class="resumen-item">
+        <h3>Concepto de Sistemas Inteligentes</h3>
+        <p>Entidades computacionales capaces de percibir su entorno, procesar información, razonar y ejecutar acciones de forma autónoma para alcanzar metas definidas.</p>
+        
+        <h3>Alcances funcionales:</h3>
+        <ul>
+          <li><strong>Percepción sensorial:</strong> Captura de datos mediante sensores o fuentes digitales</li>
+          <li><strong>Razonamiento simbólico:</strong> Inferencia basada en reglas lógicas y conocimiento previo</li>
+          <li><strong>Aprendizaje adaptativo:</strong> Capacidad de mejorar su desempeño mediante experiencia</li>
+        </ul>
+        
+        <h3>Ámbitos de aplicación:</h3>
+        <img src="../img/aplicaciones-ia.jpg" alt="Ámbitos de aplicación IA">
+        <div class="image-caption">Principales áreas de aplicación de sistemas inteligentes</div>
+        <ul>
+          <li>Automatización industrial y robótica autónoma</li>
+          <li>Diagnóstico médico asistido por IA</li>
+          <li>Vehículos inteligentes y sistemas ADAS</li>
+          <li>Finanzas y mercados predictivos</li>
+          <li>Sistemas expertos en atención al cliente</li>
+          <li>Educación personalizada</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">2. Arquitectura de Sistemas Inteligentes</div>
+      
+      <div class="resumen-item">
+        <h3>Componentes principales:</h3>
+        <img src="../img/arquitectura-sistemas-ia.png" alt="Arquitectura sistemas IA">
+        <div class="image-caption">Diagrama de arquitectura de un sistema inteligente</div>
+        <ul>
+          <li><strong>Módulo de percepción:</strong> Interfaces con sensores y fuentes de datos</li>
+          <li><strong>Módulo de conocimiento:</strong> Base de datos estructurada, ontologías</li>
+          <li><strong>Módulo de razonamiento:</strong> Algoritmos de inferencia lógica</li>
+          <li><strong>Módulo de aprendizaje:</strong> Técnicas de machine learning</li>
+          <li><strong>Módulo de acción:</strong> Control de actuadores físicos</li>
+          <li><strong>Interfaz hombre-máquina:</strong> Canales de interacción con usuarios</li>
+        </ul>
+      </div>
+      
+      <div class="resumen-item">
+        <h3>Ejemplo: Sistema de Adquisición con DRONE</h3>
+        <div class="code-block">
+          # Subsistema de agentes inteligentes
+          class AgenteAnalisis:
+              def __init__(self):
+                  self.modelo = cargar_modelo_ia()
+              
+              def analizar_imagen(self, imagen):
+                  preprocesada = preprocesar(imagen)
+                  return self.modelo.predict(preprocesada)
+          
+          # Subsistema de aprendizaje
+          def entrenar_modelo(datos):
+              modelo = RedNeuronal()
+              modelo.entrenar(datos)
+              return modelo
+        </div>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">3. Redes Neuronales y Deep Learning</div>
+      
+      <div class="resumen-item">
+        <h3>Redes Neuronales Artificiales</h3>
+        <img src="../img/red-neuronal.png" alt="Red neuronal">
+        <div class="image-caption">Estructura básica de una red neuronal</div>
+        <p>Modelos computacionales inspirados en el cerebro humano, diseñados para procesamiento paralelo y adaptativo de información.</p>
+        
+        <h3>Tipos comunes:</h3>
+        <ul>
+          <li><strong>Perceptrón multicapa (MLP):</strong> Para problemas básicos de clasificación</li>
+          <li><strong>Redes convolucionales (CNNs):</strong> Para visión artificial</li>
+          <li><strong>Redes recurrentes (RNNs/LSTMs):</strong> Para secuencias temporales</li>
+          <li><strong>Transformers:</strong> Para procesamiento de lenguaje natural</li>
+        </ul>
+        
+        <h3>Ejemplo de implementación:</h3>
+        <div class="code-block">
+          from tensorflow.keras.models import Sequential
+          from tensorflow.keras.layers import Dense
+          
+          # Crear modelo
+          modelo = Sequential()
+          modelo.add(Dense(64, activation='relu', input_dim=20))
+          modelo.add(Dense(64, activation='relu'))
+          modelo.add(Dense(1, activation='sigmoid'))
+          
+          # Compilar
+          modelo.compile(optimizer='adam',
+                        loss='binary_crossentropy',
+                        metrics=['accuracy'])
+          
+          # Entrenar
+          modelo.fit(X_train, y_train, epochs=10, batch_size=32)
+        </div>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">4. Algoritmos de Toma de Decisiones</div>
+      
+      <div class="resumen-item">
+        <h3>Sistemas basados en reglas</h3>
+        <div class="code-block">
+          # Ejemplo diagnóstico médico
+          def diagnosticar(sintomas):
+              if "fiebre" in sintomas and "tos" in sintomas:
+                  return "Posible gripe"
+              elif "dolor_cabeza" in sintomas and "mareos" in sintomas:
+                  return "Posible migraña"
+              else:
+                  return "Consulta médica recomendada"
+          
+          # Uso
+          sintomas_paciente = ["fiebre", "tos", "dolor_garganta"]
+          print(diagnosticar(sintomas_paciente))  # Posible gripe
+        </div>
+      </div>
+      
+      <div class="resumen-item">
+        <h3>Lógica difusa</h3>
+        <img src="../img/logica-difusa.png" alt="Lógica difusa">
+        <div class="image-caption">Ejemplo de conjuntos difusos para temperatura</div>
+        <div class="code-block">
+          import numpy as np
+          import skfuzzy as fuzz
+          from skfuzzy import control as ctrl
+          
+          # Variables
+          temperatura = ctrl.Antecedent(np.arange(15, 41, 1), 'temperatura')
+          potencia = ctrl.Consequent(np.arange(0, 101, 1), 'potencia')
+          
+          # Conjuntos difusos
+          temperatura['baja'] = fuzz.trimf(temperatura.universe, [15, 15, 25])
+          temperatura['media'] = fuzz.trimf(temperatura.universe, [20, 27, 34])
+          
+          # Reglas
+          regla1 = ctrl.Rule(temperatura['baja'], potencia['baja'])
+          regla2 = ctrl.Rule(temperatura['media'], potencia['media'])
+          
+          # Sistema de control
+          controlador = ctrl.ControlSystem([regla1, regla2])
+          simulador = ctrl.ControlSystemSimulation(controlador)
+          
+          # Prueba
+          simulador.input['temperatura'] = 28
+          simulador.compute()
+          print(simulador.output['potencia'])
+        </div>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">5. Modelos Generativos y LLMs</div>
+      
+      <div class="resumen-item">
+        <h3>Modelos Generativos vs Discriminativos</h3>
+        <img src="../img/modelos-generativos.png" alt="Modelos generativos">
+        <div class="image-caption">Comparación entre modelos generativos y discriminativos</div>
+        <ul>
+          <li><strong>Generativos:</strong> GANs, Autoencoders, VAEs</li>
+          <li><strong>Discriminativos:</strong> SVM, Árboles de decisión, BERT</li>
+        </ul>
+      </div>
+      
+      <div class="resumen-item">
+        <h3>Large Language Models (LLM)</h3>
+        <div class="code-block">
+          from transformers import AutoTokenizer, AutoModelForCausalLM
+          
+          # Cargar modelo LLaMA
+          model_id = "meta-llama/Meta-llama-3-8B-Instruct"
+          tokenizer = AutoTokenizer.from_pretrained(model_id)
+          model = AutoModelForCausalLM.from_pretrained(model_id)
+          
+          # Generar texto
+          prompt = "Explica cómo funciona una red neuronal"
+          inputs = tokenizer(prompt, return_tensors="pt")
+          outputs = model.generate(**inputs, max_new_tokens=200)
+          print(tokenizer.decode(outputs[0]))
+        </div>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">6. Implementación con Flask</div>
+      
+      <div class="resumen-item">
+        <h3>Interfaz web para sistema inteligente</h3>
+        <img src="../img/flask-ia.png" alt="Interfaz Flask para IA">
+        <div class="image-caption">Interfaz web para interactuar con modelos de IA</div>
+        <div class="code-block">
+          from flask import Flask, render_template, request, jsonify
+          from modelo_ia import cargar_modelo, predecir
+          
+          app = Flask(__name__)
+          modelo = cargar_modelo()
+          
+          @app.route('/')
+          def index():
+              return render_template('formulario.html')
+          
+          @app.route('/predecir', methods=['POST'])
+          def predecir_ruta():
+              datos = request.json
+              resultado = predecir(modelo, datos)
+              return jsonify({"resultado": resultado})
+          
+          if __name__ == '__main__':
+              app.run(debug=True)
+        </div>
+      </div>
+      
+      <div class="resumen-item">
+        <h3>Frontend con JavaScript</h3>
+        <div class="code-block">
+          &lt;!-- formulario.html --&gt;
+          &lt;form id="form-ia"&gt;
+            &lt;input type="text" id="entrada" placeholder="Ingrese datos"&gt;
+            &lt;button type="submit"&gt;Predecir&lt;/button&gt;
+          &lt;/form&gt;
+          &lt;div id="resultado"&gt;&lt;/div&gt;
+          
+          &lt;script&gt;
+            document.getElementById('form-ia').onsubmit = async (e) => {
+              e.preventDefault();
+              const entrada = document.getElementById('entrada').value;
+              const response = await fetch('/predecir', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ datos: entrada })
+              });
+              const data = await response.json();
+              document.getElementById('resultado').innerText = data.resultado;
+            };
+          &lt;/script&gt;
+        </div>
+      </div>
+    </div>
+
+    <div class="pdf-controls">
+      <a href="../cuaderno.html">← Volver al cuaderno</a>
+      <a href="../docs/sistemas-inteligentes-pythonS14.pdf" download>Descargar PDF</a>
+      <a href="https://github.com/JENIFER891/Ejercicios.git" target="_blank">Ver en GitHub</a>
+       </div>
+  </main>
+</body>
+</html>

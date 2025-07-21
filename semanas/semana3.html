@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Semana 3 - CSS Avanzado</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #000000;
+      background-color: #fffcf6a4;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .contenido-semana {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 30px;
+      background-color: #ddd7bf;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+    }
+    
+    .resumen-container {
+      background-color: #f8f9fa;
+      padding: 25px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      overflow: hidden;
+    }
+    
+    .resumen-title {
+      color: white;
+      padding: 16px 25px;
+      border-radius: 8px;
+      margin: -25px -25px 25px -25px;
+      background: linear-gradient(135deg, #000000 0%, #4a3fb8 100%);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      position: relative;
+      overflow: hidden;
+      transform: translateY(0);
+      transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+      animation: slideIn 0.8s ease-out;
+    }
+    
+    .resumen-container:nth-child(odd) .resumen-title {
+      background: linear-gradient(135deg, #000000 0%, #4a3fb8 100%);
+    }
+    
+    .resumen-title:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      background: linear-gradient(135deg, #000000 0%, #7060ff 100%);
+    }
+    
+    .resumen-title::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+      );
+      transition: 0.6s;
+    }
+    
+    .resumen-title:hover::before {
+      left: 100%;
+    }
+    
+    @keyframes slideIn {
+      0% {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(108, 92, 231, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 15px rgba(108, 92, 231, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(108, 92, 231, 0);
+      }
+    }
+    
+    .resumen-title {
+      animation: slideIn 0.8s ease-out, pulse 2s infinite 1s;
+    }
+    
+    .resumen-item {
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .resumen-item:last-child {
+      border-bottom: none;
+    }
+    
+    .code-block {
+      background-color: #2d2d2d;
+      color: #f8f8f2;
+      padding: 15px;
+      border-radius: 5px;
+      font-family: 'Courier New', Courier, monospace;
+      overflow-x: auto;
+      margin: 15px 0;
+    }
+    
+    .pdf-controls {
+      margin: 30px 0;
+      text-align: center;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+    
+    .pdf-controls a {
+      display: inline-block;
+      padding: 12px 20px;
+      background-color: #6c5ce7;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .pdf-controls a:hover {
+      background-color: #5649c0;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .ejercicios-btn {
+      background-color: #871dc9 !important;
+      margin-top: 15px;
+      flex: 1 0 100%;
+      max-width: 250px;
+    }
+    
+    h1, h2 {
+      color: #4a3fb8;
+    }
+    
+    h1 {
+      margin-bottom: 30px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #e0d6ff;
+      text-align: center;
+    }
+    
+    h2 {
+      margin-top: 0;
+      color: #5e4b9e;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+    }
+    
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+    
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+    
+    th {
+      background-color: #4a3fb8;
+      color: white;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    
+    @media (max-width: 768px) {
+      .contenido-semana {
+        margin: 20px;
+        padding: 20px;
+      }
+      
+      .pdf-controls a {
+        padding: 10px 15px;
+        font-size: 0.9em;
+      }
+      
+      .resumen-title {
+        padding: 12px 20px;
+        font-size: 1.1em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>CUADERNO</h1>
+  </header>
+
+  <main class="contenido-semana">
+    <h2>Semana 3: CSS Avanzado</h2>
+    <p>Técnicas avanzadas de CSS para crear interfaces web modernas y responsivas.</p>
+    
+    <div class="resumen-container">
+      <div class="resumen-title">Variables CSS y Custom Properties</div>
+      
+      <div class="resumen-item">
+        <h3>Definición y uso</h3>
+        <p>Las propiedades personalizadas (variables CSS) permiten definir valores reutilizables en todo el documento.</p>
+        <div class="code-block">
+          :root {
+            --main-color: #4a3fb8;
+            --padding-default: 15px;
+          }
+          
+          .elemento {
+            color: var(--main-color);
+            padding: var(--padding-default);
+          }
+        </div>
+        
+        <h3>Ventajas</h3>
+        <ul>
+          <li>Facilitan el mantenimiento del código</li>
+          <li>Permiten cambios globales con una sola modificación</li>
+          <li>Mejoran la consistencia del diseño</li>
+          <li>Pueden ser modificadas con JavaScript</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Funciones CSS</div>
+      
+      <div class="resumen-item">
+        <h3>calc()</h3>
+        <p>Permite realizar cálculos matemáticos directamente en CSS.</p>
+        <div class="code-block">
+          .elemento {
+            width: calc(100% - 80px);
+          }
+        </div>
+        
+        <h3>clamp()</h3>
+        <p>Define un valor entre un mínimo y un máximo, con un valor ideal.</p>
+        <div class="code-block">
+          .elemento {
+            font-size: clamp(1rem, 2.5vw, 2rem);
+          }
+        </div>
+        
+        <h3>min() y max()</h3>
+        <p>Seleccionan el valor mínimo o máximo entre varios parámetros.</p>
+        <div class="code-block">
+          .elemento {
+            width: min(50vw, 200px);
+            height: max(40em, 98%);
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Grid Layout Avanzado</div>
+      
+      <div class="resumen-item">
+        <h3>Áreas de Grid</h3>
+        <p>Permite definir áreas con nombres para organizar el layout.</p>
+        <div class="code-block">
+          .contenedor {
+            display: grid;
+            grid-template-areas:
+              "header header header"
+              "sidebar main main"
+              "footer footer footer";
+          }
+          
+          .header { grid-area: header; }
+          .sidebar { grid-area: sidebar; }
+          .main { grid-area: main; }
+          .footer { grid-area: footer; }
+        </div>
+        
+        <h3>auto-fit vs auto-fill</h3>
+        <table>
+          <tr>
+            <th>auto-fit</th>
+            <th>auto-fill</th>
+          </tr>
+          <tr>
+            <td>Ajusta columnas al espacio disponible</td>
+            <td>Crea tantas columnas como quepan</td>
+          </tr>
+          <tr>
+            <td>Columnas vacías colapsan</td>
+            <td>Mantiene columnas vacías</td>
+          </tr>
+          <tr>
+            <td>Ideal para contenido dinámico</td>
+            <td>Útil cuando se espera más contenido</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Flexbox Avanzado</div>
+      
+      <div class="resumen-item">
+        <h3>Alineación</h3>
+        <ul>
+          <li><strong>justify-content:</strong> Alineación en eje principal</li>
+          <li><strong>align-items:</strong> Alineación en eje transversal</li>
+          <li><strong>align-content:</strong> Alineación de múltiples líneas</li>
+          <li><strong>align-self:</strong> Alineación individual de items</li>
+        </ul>
+        
+        <h3>Distribución Dinámica</h3>
+        <div class="code-block">
+          .item {
+            flex-grow: 1;   /* Capacidad de crecimiento */
+            flex-shrink: 1; /* Capacidad de reducción */
+            flex-basis: 100px; /* Tamaño inicial */
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Diseño Responsivo</div>
+      
+      <div class="resumen-item">
+        <h3>Media Queries</h3>
+        <p>Permiten aplicar estilos condicionales según características del dispositivo.</p>
+        <div class="code-block">
+          /* Mobile-first */
+          body { font-size: 16px; }
+          
+          @media (min-width: 768px) {
+            body { font-size: 18px; }
+          }
+          
+          @media (min-width: 1200px) {
+            body { font-size: 20px; }
+          }
+        </div>
+        
+        <h3>Enfoque Mobile-First</h3>
+        <ul>
+          <li>Diseñar primero para móviles</li>
+          <li>Progresivamente mejorar para pantallas más grandes</li>
+          <li>Prioriza simplicidad y contenido esencial</li>
+          <li>Mejora la velocidad de carga</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Scroll Snap y Técnicas de Scroll</div>
+      
+      <div class="resumen-item">
+        <h3>Scroll Snap</h3>
+        <p>Permite "anclar" elementos durante el desplazamiento.</p>
+        <div class="code-block">
+          .container {
+            scroll-snap-type: y mandatory;
+            overflow-y: scroll;
+          }
+          
+          .item {
+            scroll-snap-align: start;
+          }
+        </div>
+        
+        <h3>Scroll Suave</h3>
+        <div class="code-block">
+          html {
+            scroll-behavior: smooth;
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Filtros y Efectos Visuales</div>
+      
+      <div class="resumen-item">
+        <h3>Filtros CSS</h3>
+        <table>
+          <tr>
+            <th>Filtro</th>
+            <th>Descripción</th>
+            <th>Ejemplo</th>
+          </tr>
+          <tr>
+            <td>blur()</td>
+            <td>Aplica desenfoque gaussiano</td>
+            <td>filter: blur(5px);</td>
+          </tr>
+          <tr>
+            <td>brightness()</td>
+            <td>Ajusta el brillo</td>
+            <td>filter: brightness(150%);</td>
+          </tr>
+          <tr>
+            <td>contrast()</td>
+            <td>Ajusta el contraste</td>
+            <td>filter: contrast(120%);</td>
+          </tr>
+          <tr>
+            <td>grayscale()</td>
+            <td>Convierte a escala de grises</td>
+            <td>filter: grayscale(100%);</td>
+          </tr>
+          <tr>
+            <td>hue-rotate()</td>
+            <td>Rota los tonos de color</td>
+            <td>filter: hue-rotate(90deg);</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Laboratorio N° 03</div>
+      
+      <div class="resumen-item">
+        <h3>Ejercicios Prácticos</h3>
+        <ol>
+          <li>Crear un layout usando Grid con áreas nombradas</li>
+          <li>Implementar un sistema de variables CSS para colores y tamaños</li>
+          <li>Diseñar un componente que use clamp() para tamaños responsivos</li>
+          <li>Crear una galería de imágenes con efectos de filtros CSS</li>
+          <li>Implementar un carrusel con Scroll Snap</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="pdf-controls">
+      <a href="../cuaderno.html">← Volver al inicio</a>
+      <a href="../docs/semana3.pdf" download>Descargar PDF</a>
+    </div>
+  </main>
+</body>
+</html>

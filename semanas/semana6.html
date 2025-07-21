@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Semana 6 - Componentes, JSX, TypeScript y Estilos en React</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #000000;
+      background-color: #fffcf6a4;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .contenido-semana {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 30px;
+      background-color: #ddd7bf;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+    }
+    
+    .resumen-container {
+      background-color: #f8f9fa;
+      padding: 25px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      overflow: hidden;
+    }
+    
+    .resumen-title {
+      color: white;
+      padding: 16px 25px;
+      border-radius: 8px;
+      margin: -25px -25px 25px -25px;
+      background: linear-gradient(135deg, #000000 0%, #4a3fb8 100%);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      position: relative;
+      overflow: hidden;
+      transform: translateY(0);
+      transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+      animation: slideIn 0.8s ease-out;
+    }
+    
+    .resumen-container:nth-child(odd) .resumen-title {
+      background: linear-gradient(135deg, #000000 0%, #4a3fb8 100%);
+    }
+    
+    .resumen-title:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      background: linear-gradient(135deg, #000000 0%, #7060ff 100%);
+    }
+    
+    .resumen-title::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+      );
+      transition: 0.6s;
+    }
+    
+    .resumen-title:hover::before {
+      left: 100%;
+    }
+    
+    @keyframes slideIn {
+      0% {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(108, 92, 231, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 15px rgba(108, 92, 231, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(108, 92, 231, 0);
+      }
+    }
+    
+    .resumen-title {
+      animation: slideIn 0.8s ease-out, pulse 2s infinite 1s;
+    }
+    
+    .resumen-item {
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .resumen-item:last-child {
+      border-bottom: none;
+    }
+    
+    .code-block {
+      background-color: #2d2d2d;
+      color: #f8f8f2;
+      padding: 15px;
+      border-radius: 5px;
+      font-family: 'Courier New', Courier, monospace;
+      overflow-x: auto;
+      margin: 15px 0;
+    }
+    
+    .pdf-controls {
+      margin: 30px 0;
+      text-align: center;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+    
+    .pdf-controls a {
+      display: inline-block;
+      padding: 12px 20px;
+      background-color: #6c5ce7;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .pdf-controls a:hover {
+      background-color: #5649c0;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .ejercicios-btn {
+      background-color: #871dc9 !important;
+      margin-top: 15px;
+      flex: 1 0 100%;
+      max-width: 250px;
+    }
+    
+    h1, h2 {
+      color: #4a3fb8;
+    }
+    
+    h1 {
+      margin-bottom: 30px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #e0d6ff;
+      text-align: center;
+    }
+    
+    h2 {
+      margin-top: 0;
+      color: #5e4b9e;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+    }
+    
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+    
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+    
+    th {
+      background-color: #4a3fb8;
+      color: white;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    
+    @media (max-width: 768px) {
+      .contenido-semana {
+        margin: 20px;
+        padding: 20px;
+      }
+      
+      .pdf-controls a {
+        padding: 10px 15px;
+        font-size: 0.9em;
+      }
+      
+      .resumen-title {
+        padding: 12px 20px;
+        font-size: 1.1em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>CUADERNO</h1>
+  </header>
+
+  <main class="contenido-semana">
+    <h2>Semana 6: Componentes, JSX, TypeScript y Estilos en React</h2>
+    <p>Conceptos avanzados para el desarrollo de componentes en React.</p>
+    
+    <div class="resumen-container">
+      <div class="resumen-title">Renderizar HTML en React</div>
+      
+      <div class="resumen-item">
+        <h3>Proceso de renderizado</h3>
+        <ol>
+          <li>React crea un <strong>DOM Virtual</strong> en memoria</li>
+          <li>Compara con el DOM anterior (Diffing)</li>
+          <li>Actualiza solo las partes necesarias del DOM real (Reconciliación)</li>
+        </ol>
+        
+        <h3>Función ReactDOM.render()</h3>
+        <div class="code-block">
+          ReactDOM.render(&lt;Componente /&gt;, document.getElementById('root'));
+        </div>
+        <p>Recibe dos argumentos: el componente a renderizar y el elemento HTML donde se insertará.</p>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Componentes en React</div>
+      
+      <div class="resumen-item">
+        <h3>¿Qué es un componente?</h3>
+        <ul>
+          <li>Unidad de interfaz o lógica reutilizable</li>
+          <li>Puede ofrecer o solicitar funcionalidades</li>
+          <li>Ejemplos: &lt;header&gt;, &lt;nav&gt;, &lt;section&gt;</li>
+        </ul>
+        
+        <h3>Creación de componentes</h3>
+        <p>Los componentes se crean en archivos .js, .jsx, .ts o .tsx y deben comenzar con mayúscula.</p>
+        
+        <h4>Componente de función</h4>
+        <div class="code-block">
+          function App() {
+            return (
+              &lt;&gt;
+                &lt;h1&gt;Soy el componente App&lt;/h1&gt;
+              &lt;/&gt;
+            );
+          }
+          export default App;
+        </div>
+        
+        <h4>Componente de clase</h4>
+        <div class="code-block">
+          class ComponentHeader extends React.Component {
+            render() {
+              return &lt;h2&gt;Hola, Yo soy el Header!&lt;/h2&gt;;
+            }
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">JSX - JavaScript Extensible</div>
+      
+      <div class="resumen-item">
+        <h3>¿Qué es JSX?</h3>
+        <ul>
+          <li>Lenguaje que mezcla JavaScript y HTML</li>
+          <li>Creado por Facebook para React</li>
+          <li>Requiere transpilación (Babel)</li>
+          <li>Alternativa: TypeScript</li>
+        </ul>
+        
+        <h3>Características de JSX</h3>
+        
+        <h4>Variables con HTML</h4>
+        <div class="code-block">
+          const element = &lt;h1&gt;Hola, Mundo!&lt;/h1&gt;;
+        </div>
+        
+        <h4>Expresiones en JSX</h4>
+        <div class="code-block">
+          const usuario = 'Jaime';
+          const element = &lt;h1&gt;Bienvenido {usuario}!&lt;/h1&gt;;
+        </div>
+        
+        <h4>Bloques grandes de HTML</h4>
+        <div class="code-block">
+          const myElement = (
+            &lt;ul&gt;
+              &lt;li&gt;Huancayo&lt;/li&gt;
+              &lt;li&gt;Arequipa&lt;/li&gt;
+              &lt;li&gt;Trujillo&lt;/li&gt;
+            &lt;/ul&gt;
+          );
+        </div>
+        
+        <h3>Condicionales en JSX</h3>
+        
+        <h4>Operador ternario</h4>
+        <div class="code-block">
+          const x = 5;
+          const myElement = &lt;h1&gt;{(x &lt; 10) ? "Hello" : "Goodbye"}&lt;/h1&gt;;
+        </div>
+        
+        <h4>Operador &&</h4>
+        <div class="code-block">
+          const resultado = error && (
+            &lt;div&gt;
+              &lt;h3&gt;Formato de email incorrecto&lt;/h3&gt;
+            &lt;/div&gt;
+          );
+        </div>
+        
+        <h4>Bucles con map</h4>
+        <div class="code-block">
+          {students.map((student) => 
+            &lt;ItemEstudiante 
+              id={student.id}
+              name={student.name} 
+              city={student.city} 
+            /&gt;
+          )}
+        </div>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">TypeScript en React</div>
+      
+      <div class="resumen-item">
+        <h3>¿Qué es TypeScript?</h3>
+        <ul>
+          <li>Lenguaje JavaScript con tipado estático opcional</li>
+          <li>Desarrollado por Microsoft</li>
+          <li>Detecta errores antes de la ejecución</li>
+          <li>Requiere transpilación (Babel)</li>
+        </ul>
+        
+        <h3>Variables en TypeScript</h3>
+        <div class="code-block">
+          const usuario: string = 'Jaime';
+          const myId: string = 'titulo';
+          const element: JSX.Element = &lt;h1 id={myId}&gt;Bienvenido {usuario}!&lt;/h1&gt;;
+        </div>
+        
+        <h3>Componente con TypeScript</h3>
+        <div class="code-block">
+          import React, { Dispatch, SetStateAction } from 'react';
+
+          interface PrimerProps {
+            number: number;
+            setNumber: Dispatch&lt;SetStateAction&lt;number&gt;&gt;;
+          }
+
+          const PrimerComponente: React.FC&lt;PrimerProps&gt; = ({ number, setNumber }) => {
+            return (
+              &lt;&gt;
+                &lt;div&gt;{number}&lt;/div&gt;
+                &lt;button onClick={() => setNumber(prev => prev+1)}&gt;
+                  ADD
+                &lt;/button&gt;
+              &lt;/&gt;
+            );
+          }
+
+          export default PrimerComponente;
+        </div>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Estilos en React</div>
+      
+      <div class="resumen-item">
+        <h3>Métodos para aplicar estilos</h3>
+        
+        <h4>Hojas de estilo CSS</h4>
+        <div class="code-block">
+          /* App.css */
+          .myclass {
+            color: blue;
+          }
+
+          /* Componente */
+          import './App.css';
+          function App() {
+            return &lt;h1 className="myclass"&gt;Soy el componente App&lt;/h1&gt;;
+          }
+        </div>
+        
+        <h4>Módulos CSS</h4>
+        <div class="code-block">
+          /* esti.module.css */
+          .class1 {
+            background-color: blueviolet;
+            color: aquamarine;
+            padding: 50px;
+          }
+
+          /* Componente */
+          import estilos from '../css/esti.module.css';
+          const Blogs = function() {
+            return &lt;h1 className={estilos.class1}&gt;Blogs me aquí&lt;/h1&gt;;
+          }
+        </div>
+        
+        <h4>Estilos en línea</h4>
+        <div class="code-block">
+          const NoPage = function() {
+            return &lt;h1 style={{color: "red"}}&gt;404 Página NO encontrada&lt;/h1&gt;;
+          }
+        </div>
+        
+        <h4>Objeto de estilos</h4>
+        <div class="code-block">
+          const Contact = function() {
+            const myStyle = {
+              color: "orange",
+              backgroundColor: "black",
+              padding: "39px",
+              fontFamily: "forte"
+            };
+            return &lt;h1 style={myStyle}&gt;Contact me aqui&lt;/h1&gt;;
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Tailwind CSS en React</div>
+      
+      <div class="resumen-item">
+        <h3>Instalación</h3>
+        <div class="code-block">
+          npm install -D tailwindcss postcss autoprefixer
+          npx tailwindcss init -p
+        </div>
+        
+        <h3>Configuración</h3>
+        <p>Agregar paths en tailwind.config.js:</p>
+        <div class="code-block">
+          module.exports = {
+            content: [
+              './index.html',
+              './src/**/*.jsx'
+            ],
+            theme: {
+              extend: {}
+            },
+            plugins: []
+          }
+        </div>
+        
+        <h3>Directivas en CSS</h3>
+        <div class="code-block">
+          @tailwind base;
+          @tailwind components;
+          @tailwind utilities;
+        </div>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Props y Children</div>
+      
+      <div class="resumen-item">
+        <h3>Props</h3>
+        <p>Permiten transferir datos entre componentes.</p>
+        
+        <h4>Ejemplo de Props</h4>
+        <div class="code-block">
+          // Componente Padre
+          const Padre = () => {
+            let nombre = "Jaime";
+            return (
+              &lt;&gt;
+                &lt;div&gt;Soy el Componente Padre&lt;/div&gt;
+                &lt;Hijo dato={nombre} /&gt;
+              &lt;/&gt;
+            );
+          }
+
+          // Componente Hijo
+          const Hijo = (props) => {
+            return (
+              &lt;&gt;
+                &lt;div&gt;Soy el componente Hijo&lt;/div&gt;
+                &lt;p&gt;{props.dato}&lt;/p&gt;
+              &lt;/&gt;
+            );
+          }
+        </div>
+        
+        <h3>Children</h3>
+        <p>Permite enviar contenido al componente hijo.</p>
+        
+        <h4>Ejemplo de Children</h4>
+        <div class="code-block">
+          // Componente Padre
+          const Padre = () => {
+            return (
+              &lt;&gt;
+                &lt;div&gt;Soy el Componente Padre&lt;/div&gt;
+                &lt;Hijo&gt;Información Children&lt;/Hijo&gt;
+              &lt;/&gt;
+            );
+          }
+
+          // Componente Hijo
+          const Hijo = ({children}) => {
+            return (
+              &lt;&gt;
+                &lt;div&gt;Soy el componente Hijo&lt;/div&gt;
+                &lt;p&gt;{children}&lt;/p&gt;
+              &lt;/&gt;
+            );
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Laboratorio N° 06</div>
+      
+      <div class="resumen-item">
+        <h3>Ejercicios Prácticos</h3>
+        <ol>
+          <li>Desarrollar una aplicación web en React con un diseño responsivo diferente para PC, Tablet y móvil con 7 componentes (uno por sección) usando CSS puro.</li>
+          <li>Crear una aplicación con 4 componentes anidados, pasando un objeto (nombre, dirección, ciudad) desde el componente 1 al componente 4 y mostrarlo en un card.</li>
+          <li>Desarrollar una aplicación con 2 componentes (padre e hijo) y pasar datos del hijo al padre, renderizando el dato en el padre.</li>
+          <li>Crear 3 componentes (padre y dos hijos) y pasar datos (nombre y apellido) del componente hermano 1 al hermano 2.</li>
+          <li>Desarrollar componentes para renderizar datos de 4 estudiantes (id, name, city) en una tabla con estilos CSS.</li>
+        </ol>
+        
+        <h3>Ejemplo de tabla de estudiantes</h3>
+        <table>
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>City</th>
+            <th>Action</th>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>Jose Lazo</td>
+            <td>Huancayo</td>
+            <td>[Ver]</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Ana Trelles</td>
+            <td>Lima</td>
+            <td>[Ver]</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Pedro Gonzales</td>
+            <td>Arequipa</td>
+            <td>[Ver]</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Rosa Solo</td>
+            <td>Trujillo</td>
+            <td>[Ver]</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="pdf-controls">
+      <a href="../cuaderno.html">← Volver al inicio</a>
+      <a href="../docs/semana6.pdf" download>Descargar PDF</a>
+    </div>
+  </main>
+</body>
+</html>

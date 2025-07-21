@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Semana 10 - JSP, Jakarta y Spring</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.7;
+      color: #333;
+      background-color: #f8f4ff;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .contenido-semana {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 35px;
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+    }
+    
+    .resumen-container {
+      background-color: #f9f5ff;
+      padding: 30px;
+      border-radius: 10px;
+      margin-bottom: 40px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+      border-left: 5px solid #6c5ce7;
+    }
+    
+    .resumen-title {
+      color: white;
+      padding: 18px 30px;
+      border-radius: 8px;
+      margin: -30px -30px 30px -30px;
+      background: linear-gradient(135deg, #000000 0%, #6c5ce7 100%);
+      box-shadow: 0 5px 20px rgba(74, 63, 184, 0.3);
+      position: relative;
+      overflow: hidden;
+      transform: translateY(0);
+      transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+      animation: slideIn 0.8s ease-out;
+      font-size: 1.4em;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    }
+    
+    .resumen-title:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(74, 63, 184, 0.4);
+      background: linear-gradient(135deg, #000000 0%, #6c5ce7 100%);
+    }
+    
+    .resumen-title::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+      transition: 0.6s;
+    }
+    
+    .resumen-title:hover::before {
+      left: 100%;
+    }
+    
+    @keyframes slideIn {
+      0% {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .resumen-section {
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px dashed #d9c7ff;
+    }
+    
+    .resumen-section:last-child {
+      border-bottom: none;
+    }
+    
+    .section-title {
+      color: #5e4b9e;
+      margin-top: 0;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #e0d6ff;
+      font-size: 1.2em;
+    }
+    
+    .subsection {
+      margin-left: 20px;
+      margin-bottom: 20px;
+    }
+    
+    .subsection-title {
+      color: #6c5ce7;
+      font-weight: 600;
+    }
+    
+    .code-block {
+      background-color: #2d2d2d;
+      color: #f8f8f2;
+      padding: 15px;
+      border-radius: 6px;
+      font-family: 'Courier New', Courier, monospace;
+      overflow-x: auto;
+      margin: 15px 0;
+      font-size: 0.9em;
+    }
+    
+    .image-container {
+      text-align: center;
+      margin: 20px 0;
+    }
+    
+    .image-container img {
+      max-width: 90%;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    
+    .image-container img:hover {
+      transform: scale(1.02);
+    }
+    
+    .image-caption {
+      text-align: center;
+      font-style: italic;
+      color: #666;
+      font-size: 0.9em;
+      margin-top: 8px;
+    }
+    
+    .pdf-controls {
+      margin: 40px 0 20px;
+      text-align: center;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+    
+    .pdf-controls a {
+      display: inline-block;
+      padding: 14px 25px;
+      background-color: #6c5ce7;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 3px 8px rgba(108, 92, 231, 0.3);
+    }
+    
+    .pdf-controls a:hover {
+      background-color: #5649c0;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+    }
+    
+    .ejercicios-btn {
+      background-color: #a499e7 !important;
+      margin-top: 20px;
+      flex: 1 0 100%;
+      max-width: 300px;
+    }
+    
+    h1, h2 {
+      color: #4a3fb8;
+      text-align: center;
+    }
+    
+    h1 {
+      margin-bottom: 30px;
+      padding-bottom: 15px;
+      border-bottom: 3px solid #e0d6ff;
+      font-size: 2.2em;
+    }
+    
+    h2 {
+      margin-top: 0;
+      font-size: 1.8em;
+    }
+    
+    .intro-text {
+      text-align: center;
+      font-size: 1.1em;
+      color: #555;
+      margin-bottom: 40px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    @media (max-width: 768px) {
+      .contenido-semana {
+        margin: 20px;
+        padding: 20px;
+      }
+      
+      .resumen-title {
+        padding: 15px 20px;
+        font-size: 1.2em;
+        margin: -20px -20px 20px -20px;
+      }
+      
+      .pdf-controls a {
+        padding: 12px 20px;
+        font-size: 0.9em;
+      }
+      
+      .code-block {
+        font-size: 0.8em;
+        padding: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+  <h1 style="text-align: center;">CUADERNO</h1>
+</header>
+
+  <main class="contenido-semana">
+    <h2>Semana 11: JSP, JAKARTA EE Y SPRING FRAMEWORK</h2>
+    <p class="intro-text">Conceptos fundamentales de JSP, Jakarta EE y Spring Framework, incluyendo arquitectura, configuración y ejemplos prácticos.</p>
+    
+    <!-- Contenedor 1: Apache Tomcat -->
+    <div class="resumen-container">
+      <div class="resumen-title">1. Apache Tomcat</div>
+      
+      <div class="resumen-section">
+        <h3 class="section-title">Introducción</h3>
+        <p>Apache Tomcat es un contenedor de servlets desarrollado bajo el proyecto Jakarta en la Apache Software Foundation. Implementa las especificaciones de servlets y JSP de Oracle.</p>
+        
+        <div class="image-container">
+          <img src="../img/tomcat-logo.png" alt="Logo Apache Tomcat">
+          <div class="image-caption">Logo de Apache Tomcat</div>
+        </div>
+      </div>
+      
+      <div class="resumen-section">
+        <h3 class="section-title">Estructura de Directorios</h3>
+        <ul>
+          <li><strong>bin:</strong> Ejecutables y scripts</li>
+          <li><strong>conf:</strong> Ficheros de configuración</li>
+          <li><strong>webapps:</strong> Directorio raíz de aplicaciones web</li>
+          <li><strong>logs:</strong> Archivos de registro</li>
+          <li><strong>work:</strong> Información temporal</li>
+        </ul>
+      </div>
+      
+      <div class="resumen-section">
+        <h3 class="section-title">Configuración (server.xml)</h3>
+        <div class="code-block">
+&lt;Server&gt;
+  &lt;Service&gt;
+    &lt;Connector port="8080" protocol="HTTP/1.1"
+               connectionTimeout="20000"
+               redirectPort="8443" /&gt;
+    &lt;Engine name="Catalina" defaultHost="localhost"&gt;
+      &lt;Host name="localhost" appBase="webapps"&gt;
+        &lt;Context path="" docBase="miAplicacion" /&gt;
+      &lt;/Host&gt;
+    &lt;/Engine&gt;
+  &lt;/Service&gt;
+&lt;/Server&gt;
+        </div>
+      </div>
+    </div>
+    
+    <!-- Contenedor 2: JSP y Jakarta -->
+    <div class="resumen-container">
+      <div class="resumen-title">2. JSP (Jakarta Server Pages)</div>
+      
+      <div class="resumen-section">
+        <h3 class="section-title">Conceptos Básicos</h3>
+        <p>JSP es un lenguaje del lado del servidor que permite crear páginas web dinámicas usando Java. Combina HTML con código Java mediante etiquetas especiales.</p>
+      </div>
+      
+      <div class="resumen-section">
+        <h3 class="section-title">Sintaxis Principal</h3>
+        
+        <div class="subsection">
+          <h4 class="subsection-title">Scriptlets</h4>
+          <div class="code-block">
+&lt;% 
+  // Código Java
+  String nombre = request.getParameter("nombre");
+  out.println("Hola " + nombre);
+%&gt;
+          </div>
+        </div>
+        
+        <div class="subsection">
+          <h4 class="subsection-title">Expresiones</h4>
+          <div class="code-block">
+&lt;p&gt;La fecha actual es: &lt;%= new java.util.Date() %&gt;&lt;/p&gt;
+          </div>
+        </div>
+        
+        <div class="subsection">
+          <h4 class="subsection-title">Declaraciones</h4>
+          <div class="code-block">
+&lt;%! 
+  private int contador = 0;
+  
+  public void incrementar() {
+    contador++;
+  }
+%&gt;
+          </div>
+        </div>
+      </div>
+      
+      <div class="resumen-section">
+        <h3 class="section-title">Objetos Implícitos</h3>
+        <table style="width:100%; border-collapse: collapse; margin: 20px 0;">
+          <tr style="background-color: #6c5ce7; color: white;">
+            <th style="padding: 10px; text-align: left;">Objeto</th>
+            <th style="padding: 10px; text-align: left;">Descripción</th>
+          </tr>
+          <tr style="border-bottom: 1px solid #ddd;">
+            <td style="padding: 10px;">request</td>
+            <td style="padding: 10px;">HttpServletRequest asociado a la solicitud</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #ddd;">
+            <td style="padding: 10px;">response</td>
+            <td style="padding: 10px;">HttpServletResponse para la respuesta</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #ddd;">
+            <td style="padding: 10px;">session</td>
+            <td style="padding: 10px;">HttpSession de la sesión actual</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #ddd;">
+            <td style="padding: 10px;">application</td>
+            <td style="padding: 10px;">ServletContext del contexto de la aplicación</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    
+    <!-- Contenedor 3: Spring Framework -->
+    <div class="resumen-container">
+      <div class="resumen-title">3. Spring Framework</div>
+      
+      <div class="resumen-section">
+        <h3 class="section-title">Conceptos Clave</h3>
+        
+        <div class="subsection">
+          <h4 class="subsection-title">Inversión de Control (IoC)</h4>
+          <p>Spring invierte el control del flujo de la aplicación, gestionando automáticamente los objetos y sus dependencias.</p>
+        </div>
+        
+        <div class="subsection">
+          <h4 class="subsection-title">Inyección de Dependencias (DI)</h4>
+          <p>Spring permite inyectar dependencias a través de constructores, setters o directamente en campos.</p>
+          <div class="code-block">
+// Inyección por constructor
+@Service
+public class MiServicio {
+  private final MiRepositorio repositorio;
+  
+  @Autowired
+  public MiServicio(MiRepositorio repositorio) {
+    this.repositorio = repositorio;
+  }
+}
+          </div>
+        </div>
+      </div>
+      
+      <div class="resumen-section">
+        <h3 class="section-title">Spring Boot</h3>
+        <p>Spring Boot simplifica la configuración de aplicaciones Spring con convenciones inteligentes y auto-configuración.</p>
+        
+        <div class="image-container">
+          <img src="../img/spring-boot-architecture.png" alt="Arquitectura Spring Boot">
+          <div class="image-caption">Arquitectura típica de una aplicación Spring Boot</div>
+        </div>
+        
+        <p>Características principales:</p>
+        <ul>
+          <li>Servidor embebido (Tomcat, Jetty)</li>
+          <li>Configuración automática</li>
+          <li>Métricas y health checks</li>
+          <li>Spring Initializr (start.spring.io)</li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Contenedor 4: Ejercicios Prácticos -->
+    <div class="resumen-container">
+      <div class="resumen-title">4. Ejercicios Prácticos</div>
+      
+      <div class="resumen-section">
+        <h3 class="section-title">API REST con Spring</h3>
+        <div class="code-block">
+@RestController
+@RequestMapping("/api/estudiantes")
+public class EstudianteController {
+
+  @Autowired
+  private EstudianteRepository repo;
+
+  @GetMapping
+  public List&lt;Estudiante&gt; listarTodos() {
+    return repo.findAll();
+  }
+
+  @PostMapping
+  public Estudiante crear(@RequestBody Estudiante estudiante) {
+    return repo.save(estudiante);
+  }
+}
+        </div>
+      </div>
+      
+      <div class="resumen-section">
+        <h3 class="section-title">Configuración application.properties</h3>
+        <div class="code-block">
+spring.datasource.url=jdbc:mysql://localhost:3306/academico
+spring.datasource.username=root
+spring.datasource.password=123456
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+        </div>
+      </div>
+    </div>
+    
+    <!-- Botones de control -->
+    <div class="pdf-controls">
+      <a href="../cuaderno.html">← Volver al cuaderno</a>
+      <a href="../docs/JSPJakartaySpringS11.pdf" download>Descargar PDF Completo</a>
+      <a href="https://github.com/JENIFER891/Ejercicios.git" target="_blank">Ver en GitHub</a>
+    </div>
+  </main>
+</body>
+</html>

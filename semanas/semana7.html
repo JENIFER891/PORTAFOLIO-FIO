@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Semana 7 - Hooks en React</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #000000;
+      background-color: #fffcf6a4;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .contenido-semana {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 30px;
+      background-color: #ddd7bf;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+    }
+    
+    .resumen-container {
+      background-color: #f8f9fa;
+      padding: 25px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      overflow: hidden;
+    }
+    
+    .resumen-title {
+      color: white;
+      padding: 16px 25px;
+      border-radius: 8px;
+      margin: -25px -25px 25px -25px;
+      background: linear-gradient(135deg, #000000 0%, #4a3fb8 100%);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      position: relative;
+      overflow: hidden;
+      transform: translateY(0);
+      transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+      animation: slideIn 0.8s ease-out;
+    }
+    
+    .resumen-container:nth-child(odd) .resumen-title {
+      background: linear-gradient(135deg, #000000 0%, #4a3fb8 100%);
+    }
+    
+    .resumen-title:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      background: linear-gradient(135deg, #000000 0%, #7060ff 100%);
+    }
+    
+    .resumen-title::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+      );
+      transition: 0.6s;
+    }
+    
+    .resumen-title:hover::before {
+      left: 100%;
+    }
+    
+    @keyframes slideIn {
+      0% {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(108, 92, 231, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 15px rgba(108, 92, 231, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(108, 92, 231, 0);
+      }
+    }
+    
+    .resumen-title {
+      animation: slideIn 0.8s ease-out, pulse 2s infinite 1s;
+    }
+    
+    .resumen-item {
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .resumen-item:last-child {
+      border-bottom: none;
+    }
+    
+    .code-block {
+      background-color: #2d2d2d;
+      color: #f8f8f2;
+      padding: 15px;
+      border-radius: 5px;
+      font-family: 'Courier New', Courier, monospace;
+      overflow-x: auto;
+      margin: 15px 0;
+    }
+    
+    .pdf-controls {
+      margin: 30px 0;
+      text-align: center;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+    
+    .pdf-controls a {
+      display: inline-block;
+      padding: 12px 20px;
+      background-color: #6c5ce7;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .pdf-controls a:hover {
+      background-color: #5649c0;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .ejercicios-btn {
+      background-color: #871dc9 !important;
+      margin-top: 15px;
+      flex: 1 0 100%;
+      max-width: 250px;
+    }
+    
+    h1, h2 {
+      color: #4a3fb8;
+    }
+    
+    h1 {
+      margin-bottom: 30px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #e0d6ff;
+      text-align: center;
+    }
+    
+    h2 {
+      margin-top: 0;
+      color: #5e4b9e;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+    }
+    
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+    
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+    
+    th {
+      background-color: #4a3fb8;
+      color: white;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    
+    @media (max-width: 768px) {
+      .contenido-semana {
+        margin: 20px;
+        padding: 20px;
+      }
+      
+      .pdf-controls a {
+        padding: 10px 15px;
+        font-size: 0.9em;
+      }
+      
+      .resumen-title {
+        padding: 12px 20px;
+        font-size: 1.1em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>CUADERNO</h1>
+  </header>
+
+  <main class="contenido-semana">
+    <h2>Semana 7: Hooks en React</h2>
+    <p>Funciones especiales que permiten usar estado y otras características de React en componentes funcionales.</p>
+    
+    <div class="resumen-container">
+      <div class="resumen-title">Introducción a los Hooks</div>
+      
+      <div class="resumen-item">
+        <h3>¿Qué son los Hooks?</h3>
+        <ul>
+          <li>Agregados en React 16.8 (2019)</li>
+          <li>Permiten usar estado y ciclo de vida en componentes funcionales</li>
+          <li>Reducen la necesidad de componentes de clase</li>
+          <li>Son funciones JavaScript que "enganchan" características de React</li>
+        </ul>
+        
+        <h3>Tipos principales de Hooks</h3>
+        <ul>
+          <li><strong>useState</strong>: Manejo de estado local</li>
+          <li><strong>useEffect</strong>: Manejo de efectos secundarios</li>
+          <li><strong>useContext</strong>: Acceso al contexto</li>
+          <li><strong>useReducer</strong>: Manejo de estado complejo</li>
+          <li><strong>useRef</strong>: Referencias a elementos del DOM</li>
+          <li><strong>Custom Hooks</strong>: Hooks creados por el desarrollador</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">useState</div>
+      
+      <div class="resumen-item">
+        <h3>Sintaxis básica</h3>
+        <div class="code-block">
+          const [state, setState] = useState(initialValue);
+        </div>
+        
+        <h3>Ejemplo básico</h3>
+        <div class="code-block">
+          import { useState } from 'react';
+
+          function Counter() {
+            const [count, setCount] = useState(0);
+            
+            return (
+              &lt;div&gt;
+                &lt;p&gt;You clicked {count} times&lt;/p&gt;
+                &lt;button onClick={() => setCount(count + 1)}&gt;
+                  Click me
+                &lt;/button&gt;
+              &lt;/div&gt;
+            );
+          }
+        </div>
+        
+        <h3>Múltiples estados</h3>
+        <div class="code-block">
+          const [name, setName] = useState('');
+          const [age, setAge] = useState(0);
+          const [isActive, setIsActive] = useState(false);
+        </div>
+        
+        <h3>Estado con objetos</h3>
+        <div class="code-block">
+          const [user, setUser] = useState({
+            name: '',
+            email: '',
+            age: 0
+          });
+          
+          // Actualización
+          setUser({...user, name: 'John'});
+        </div>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">useEffect</div>
+      
+      <div class="resumen-item">
+        <h3>Sintaxis básica</h3>
+        <div class="code-block">
+          useEffect(() => {
+            // Código a ejecutar
+            return () => {
+              // Cleanup (opcional)
+            };
+          }, [dependencies]);
+        </div>
+        
+        <h3>Casos de uso</h3>
+        
+        <h4>Mount del componente (solo al inicio)</h4>
+        <div class="code-block">
+          useEffect(() => {
+            console.log('Componente montado');
+          }, []);
+        </div>
+        
+        <h4>Actualización por cambio de estado/props</h4>
+        <div class="code-block">
+          useEffect(() => {
+            console.log('El valor de count cambió:', count);
+          }, [count]);
+        </div>
+        
+        <h4>Post render (en cada renderizado)</h4>
+        <div class="code-block">
+          useEffect(() => {
+            console.log('Renderizado completado');
+          });
+        </div>
+        
+        <h4>Cleanup (al desmontar)</h4>
+        <div class="code-block">
+          useEffect(() => {
+            const timer = setTimeout(() => {
+              console.log('Timer completado');
+            }, 1000);
+            
+            return () => clearTimeout(timer);
+          }, []);
+        </div>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">useContext</div>
+      
+      <div class="resumen-item">
+        <h3>Concepto</h3>
+        <p>Permite compartir información entre componentes sin pasar props manualmente.</p>
+        
+        <h3>Flujo de trabajo</h3>
+        <ol>
+          <li>Crear un contexto con createContext()</li>
+          <li>Proveer el contexto con &lt;Context.Provider&gt;</li>
+          <li>Consumir el contexto con useContext()</li>
+        </ol>
+        
+        <h3>Ejemplo completo</h3>
+        
+        <h4>Creación del contexto</h4>
+        <div class="code-block">
+          // ThemeContext.js
+          import { createContext } from 'react';
+          
+          export const ThemeContext = createContext('light');
+        </div>
+        
+        <h4>Proveedor del contexto</h4>
+        <div class="code-block">
+          // App.js
+          import { ThemeContext } from './ThemeContext';
+          
+          function App() {
+            return (
+              &lt;ThemeContext.Provider value="dark"&gt;
+                &lt;Toolbar /&gt;
+              &lt;/ThemeContext.Provider&gt;
+            );
+          }
+        </div>
+        
+        <h4>Consumidor del contexto</h4>
+        <div class="code-block">
+          // Toolbar.js
+          import { useContext } from 'react';
+          import { ThemeContext } from './ThemeContext';
+          
+          function Toolbar() {
+            const theme = useContext(ThemeContext);
+            return &lt;button style={{ background: theme === 'dark' ? 'black' : 'white' }}&gt;Themed Button&lt;/button&gt;;
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">useReducer</div>
+      
+      <div class="resumen-item">
+        <h3>Concepto</h3>
+        <p>Alternativa a useState para manejar estado complejo con lógica de actualización más sofisticada.</p>
+        
+        <h3>Sintaxis básica</h3>
+        <div class="code-block">
+          const [state, dispatch] = useReducer(reducer, initialState);
+        </div>
+        
+        <h3>Ejemplo completo</h3>
+        
+        <h4>Reducer y estado inicial</h4>
+        <div class="code-block">
+          const initialState = { count: 0 };
+
+          function reducer(state, action) {
+            switch (action.type) {
+              case 'increment':
+                return { count: state.count + 1 };
+              case 'decrement':
+                return { count: state.count - 1 };
+              default:
+                throw new Error();
+            }
+          }
+        </div>
+        
+        <h4>Componente usando useReducer</h4>
+        <div class="code-block">
+          function Counter() {
+            const [state, dispatch] = useReducer(reducer, initialState);
+            
+            return (
+              &lt;&gt;
+                Count: {state.count}
+                &lt;button onClick={() => dispatch({ type: 'decrement' })}&gt;-&lt;/button&gt;
+                &lt;button onClick={() => dispatch({ type: 'increment' })}&gt;+&lt;/button&gt;
+              &lt;/&gt;
+            );
+          }
+        </div>
+        
+        <h3>Comparación con useState</h3>
+        <table>
+          <tr>
+            <th>useState</th>
+            <th>useReducer</th>
+          </tr>
+          <tr>
+            <td>Estado simple</td>
+            <td>Estado complejo</td>
+          </tr>
+          <tr>
+            <td>Actualizaciones directas</td>
+            <td>Actualizaciones mediante acciones</td>
+          </tr>
+          <tr>
+            <td>Fácil de implementar</td>
+            <td>Requiere más código inicial</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Custom Hooks</div>
+      
+      <div class="resumen-item">
+        <h3>Concepto</h3>
+        <p>Funciones personalizadas que encapsulan lógica reusable entre componentes.</p>
+        
+        <h3>Buenas prácticas</h3>
+        <ul>
+          <li>Nombres deben comenzar con "use"</li>
+          <li>Encapsular una sola pieza de lógica</li>
+          <li>Mantener el estado mínimo necesario</li>
+          <li>Documentar adecuadamente</li>
+        </ul>
+        
+        <h3>Ejemplo: Hook para fetching de datos</h3>
+        <div class="code-block">
+          // useFetch.js
+          import { useState, useEffect } from 'react';
+          
+          export function useFetch(url) {
+            const [data, setData] = useState(null);
+            const [loading, setLoading] = useState(true);
+            const [error, setError] = useState(null);
+            
+            useEffect(() => {
+              const fetchData = async () => {
+                try {
+                  const response = await fetch(url);
+                  const json = await response.json();
+                  setData(json);
+                } catch (err) {
+                  setError(err);
+                } finally {
+                  setLoading(false);
+                }
+              };
+              
+              fetchData();
+            }, [url]);
+            
+            return { data, loading, error };
+          }
+        </div>
+        
+        <h4>Uso del custom hook</h4>
+        <div class="code-block">
+          // Component.js
+          import { useFetch } from './useFetch';
+          
+          function MyComponent() {
+            const { data, loading, error } = useFetch('https://api.example.com/data');
+            
+            if (loading) return &lt;p&gt;Loading...&lt;/p&gt;;
+            if (error) return &lt;p&gt;Error!&lt;/p&gt;;
+            
+            return (
+              &lt;ul&gt;
+                {data.map(item => (
+                  &lt;li key={item.id}&gt;{item.name}&lt;/li&gt;
+                ))}
+              &lt;/ul&gt;
+            );
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Otros Hooks importantes</div>
+      
+      <div class="resumen-item">
+        <h3>useRef</h3>
+        <p>Permite crear referencias mutables que persisten durante todo el ciclo de vida del componente.</p>
+        <div class="code-block">
+          function TextInputWithFocusButton() {
+            const inputEl = useRef(null);
+            
+            const onButtonClick = () => {
+              inputEl.current.focus();
+            };
+            
+            return (
+              &lt;&gt;
+                &lt;input ref={inputEl} type="text" /&gt;
+                &lt;button onClick={onButtonClick}&gt;Focus the input&lt;/button&gt;
+              &lt;/&gt;
+            );
+          }
+        </div>
+        
+        <h3>useNavigate (React Router v6)</h3>
+        <div class="code-block">
+          import { useNavigate } from 'react-router-dom';
+          
+          function App() {
+            const navigate = useNavigate();
+            
+            return (
+              &lt;button onClick={() => navigate('/home')}&gt;
+                Go to home
+              &lt;/button&gt;
+            );
+          }
+        </div>
+        
+        <h3>useParams (React Router)</h3>
+        <div class="code-block">
+          import { useParams } from 'react-router-dom';
+          
+          function UserProfile() {
+            let { userId } = useParams();
+            
+            return &lt;h2&gt;User ID: {userId}&lt;/h2&gt;;
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Laboratorio N° 07</div>
+      
+      <div class="resumen-item">
+        <h3>Ejercicios Prácticos</h3>
+        <ol>
+          <li>Implementar un contador con useState que permita incrementar, decrementar y resetear el valor.</li>
+          <li>Crear un formulario de registro con useState que maneje múltiples campos (nombre, email, contraseña).</li>
+          <li>Desarrollar un componente que use useEffect para mostrar un mensaje cada vez que cambie un estado específico.</li>
+          <li>Implementar un tema claro/oscuro para una aplicación usando useContext.</li>
+          <li>Crear un CRUD de productos usando useReducer para manejar el estado de la lista de productos.</li>
+          <li>Desarrollar un custom hook para manejar formularios que incluya validación básica.</li>
+        </ol>
+        
+        <h3>Evaluación de competencia</h3>
+        <p>Implementar un formulario CRUD para una tabla de productos (idproduct, nameproduct, description, price, photo) utilizando useContext y useReducer.</p>
+      </div>
+    </div>
+
+    <div class="pdf-controls">
+      <a href="../cuaderno.html">← Volver al inicio</a>
+      <a href="../docs/semana7.pdf" download>Descargar PDF</a>
+    </div>
+  </main>
+</body>
+</html>

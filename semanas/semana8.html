@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Estructura Monografía JavaScript</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #000000;
+      background-color: #fffcf6a4;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .contenido-semana {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 30px;
+      background-color: #ddd7bf;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+    }
+    
+    .resumen-container {
+      background-color: #f8f9fa;
+      padding: 25px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      overflow: hidden;
+    }
+    
+    .resumen-title {
+      color: white;
+      padding: 16px 25px;
+      border-radius: 8px;
+      margin: -25px -25px 25px -25px;
+      background: linear-gradient(135deg, #000000 0%, #4a3fb8 100%);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      position: relative;
+      overflow: hidden;
+      transform: translateY(0);
+      transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+      animation: slideIn 0.8s ease-out;
+    }
+    
+    .resumen-container:nth-child(odd) .resumen-title {
+      background: linear-gradient(135deg, #000000 0%, #4a3fb8 100%);
+    }
+    
+    .resumen-title:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      background: linear-gradient(135deg, #000000 0%, #7060ff 100%);
+    }
+    
+    .resumen-title::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+      );
+      transition: 0.6s;
+    }
+    
+    .resumen-title:hover::before {
+      left: 100%;
+    }
+    
+    @keyframes slideIn {
+      0% {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(108, 92, 231, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 15px rgba(108, 92, 231, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(108, 92, 231, 0);
+      }
+    }
+    
+    .resumen-title {
+      animation: slideIn 0.8s ease-out, pulse 2s infinite 1s;
+    }
+    
+    .resumen-item {
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .resumen-item:last-child {
+      border-bottom: none;
+    }
+    
+    .code-block {
+      background-color: #2d2d2d;
+      color: #f8f8f2;
+      padding: 15px;
+      border-radius: 5px;
+      font-family: 'Courier New', Courier, monospace;
+      overflow-x: auto;
+      margin: 15px 0;
+    }
+    
+    .pdf-controls {
+      margin: 30px 0;
+      text-align: center;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+    
+    .pdf-controls a {
+      display: inline-block;
+      padding: 12px 20px;
+      background-color: #6c5ce7;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .pdf-controls a:hover {
+      background-color: #5649c0;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .ejercicios-btn {
+      background-color: #871dc9 !important;
+      margin-top: 15px;
+      flex: 1 0 100%;
+      max-width: 250px;
+    }
+    
+    h1, h2 {
+      color: #4a3fb8;
+    }
+    
+    h1 {
+      margin-bottom: 30px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #e0d6ff;
+      text-align: center;
+    }
+    
+    h2 {
+      margin-top: 0;
+      color: #5e4b9e;
+    }
+    
+    @media (max-width: 768px) {
+      .contenido-semana {
+        margin: 20px;
+        padding: 20px;
+      }
+      
+      .pdf-controls a {
+        padding: 10px 15px;
+        font-size: 0.9em;
+      }
+      
+      .resumen-title {
+        padding: 12px 20px;
+        font-size: 1.1em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1> MONOGRAFÍA JAVASCRIPT</h1>
+  </header>
+
+  <main class="contenido-semana">
+    <div class="resumen-container">
+      <div class="resumen-title">Introducción a JavaScript</div>
+      
+      <div class="resumen-item">
+        <h3>¿Qué es JavaScript?</h3>
+        <p>Lenguaje de scripting que permite implementar funcionalidades dinámicas en sitios web. Se ejecuta principalmente del lado del cliente.</p>
+        
+        <h3>Ejecución en Navegadores</h3>
+        <div class="code-block">
+          // El navegador carga el HTML
+          // Encuentra etiquetas &lt;script&gt; y ejecuta el código
+          // El motor JS interpreta y ejecuta el código
+        </div>
+        
+        <h3>Motores de JavaScript</h3>
+        <ul>
+          <li>Chrome/Node.js: V8</li>
+          <li>Firefox: SpiderMonkey</li>
+          <li>Safari: JavaScriptCore</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Variables y Tipos de Datos</div>
+      
+      <div class="resumen-item">
+        <h3>Declaración de Variables</h3>
+        <div class="code-block">
+          let variable = "valor"; // Alcance de bloque
+          const constante = 10;   // No se puede reasignar
+          var antiguo = true;     // No recomendado (alcance de función)
+        </div>
+        
+        <h3>Tipos de Datos Primitivos</h3>
+        <div class="code-block">
+          // String, Number, Boolean, Null, Undefined, Symbol, BigInt
+          let nombre = "Juan";
+          let edad = 30;
+          let esEstudiante = true;
+          let id = Symbol("id");
+        </div>
+        
+        <h3>Tipos No Primitivos</h3>
+        <div class="code-block">
+          // Object, Array, Function
+          let persona = {nombre: "Ana", edad: 25};
+          let frutas = ["manzana", "plátano"];
+          function saludar() { return "Hola"; }
+        </div>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Operadores</div>
+      
+      <div class="resumen-item">
+        <h3>Aritméticos</h3>
+        <div class="code-block">
+          let a = 10, b = 3;
+          console.log(a + b);  // 13 (suma)
+          console.log(a % b);  // 1 (módulo)
+          a++; // Incremento
+        </div>
+        
+        <h3>Lógicos</h3>
+        <div class="code-block">
+          // && (AND), || (OR), ! (NOT)
+          if (edad >= 18 && tieneLicencia) {
+            console.log("Puede conducir");
+          }
+        </div>
+        
+        <h3>Comparación</h3>
+        <div class="code-block">
+          // == (igualdad débil), === (igualdad estricta)
+          // >, <, >=, <=
+          if (edad === "30") // false (tipos diferentes)
+        </div>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Estructuras de Control</div>
+      
+      <div class="resumen-item">
+        <h3>Condicionales</h3>
+        <div class="code-block">
+          // if/else
+          if (hora < 12) {
+            console.log("Buenos días");
+          } else {
+            console.log("Buenas tardes");
+          }
+          
+          // switch
+          switch(dia) {
+            case 1: console.log("Lunes"); break;
+            default: console.log("Día no válido");
+          }
+        </div>
+        
+        <h3>Bucles</h3>
+        <div class="code-block">
+          // for
+          for (let i = 0; i < 5; i++) {
+            console.log(i);
+          }
+          
+          // while
+          while (condicion) {
+            // código
+          }
+          
+          // do-while
+          do {
+            // código ejecutado al menos una vez
+          } while (condicion);
+        </div>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Funciones</div>
+      
+      <div class="resumen-item">
+        <h3>Tipos de Funciones</h3>
+        <div class="code-block">
+          // Declaración
+          function suma(a, b) { return a + b; }
+          
+          // Expresión
+          const resta = function(a, b) { return a - b; };
+          
+          // Flecha
+          const multiplicar = (a, b) => a * b;
+        </div>
+        
+        <h3>Parámetros y Retorno</h3>
+        <div class="code-block">
+          // Parámetros predeterminados
+          function saludar(nombre = "Invitado") {
+            return `Hola, ${nombre}`;
+          }
+          
+          // Retorno de objeto
+          function crearPersona() {
+            return { nombre: "Ana", edad: 25 };
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Manipulación del DOM</div>
+      
+      <div class="resumen-item">
+        <h3>Selección de Elementos</h3>
+        <div class="code-block">
+          document.getElementById('miId');
+          document.querySelector('.miClase');
+          document.querySelectorAll('div');
+        </div>
+        
+        <h3>Modificación del DOM</h3>
+        <div class="code-block">
+          // Cambiar contenido
+          elemento.textContent = "Nuevo texto";
+          elemento.innerHTML = "&lt;strong&gt;Texto&lt;/strong&gt;";
+          
+          // Manipular clases
+          elemento.classList.add('nueva-clase');
+          elemento.classList.remove('clase-vieja');
+          
+          // Crear elementos
+          const nuevoDiv = document.createElement('div');
+          document.body.appendChild(nuevoDiv);
+        </div>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Eventos y Almacenamiento</div>
+      
+      <div class="resumen-item">
+        <h3>Manejadores de Eventos</h3>
+        <div class="code-block">
+          // Click
+          boton.addEventListener('click', function() {
+            console.log("Botón clickeado");
+          });
+          
+          // Formulario
+          formulario.addEventListener('submit', function(e) {
+            e.preventDefault(); // Evitar recarga
+            // Procesar formulario
+          });
+        </div>
+        
+        <h3>Almacenamiento Local</h3>
+        <div class="code-block">
+          // localStorage (persistente)
+          localStorage.setItem('usuario', JSON.stringify({nombre: "Ana"}));
+          const usuario = JSON.parse(localStorage.getItem('usuario'));
+          
+          // sessionStorage (solo sesión)
+          sessionStorage.setItem('config', JSON.stringify({tema: "oscuro"}));
+        </div>
+      </div>
+    </div>
+
+    <div class="pdf-controls">
+      <a href="../cuaderno.html">← Volver al cuaderno</a>
+      <a href="../docs/MONOGRAFÍA-GRUPO 7-JAVASCRIPT.pdf" download>Descargar Monografía</a>
+      <a href="../ejercicios/Ejemplos.EvalFinal.zip" download class="ejercicios-btn">Descargar ejemplos usados</a>
+    </div>
+  </main>
+</body>
+</html>

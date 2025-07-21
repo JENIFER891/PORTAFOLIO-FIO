@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Semana 4 - Tailwind CSS</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #000000;
+      background-color: #fffcf6a4;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .contenido-semana {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 30px;
+      background-color: #ddd7bf;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+    }
+    
+    .resumen-container {
+      background-color: #f8f9fa;
+      padding: 25px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      overflow: hidden;
+    }
+    
+    .resumen-title {
+      color: white;
+      padding: 16px 25px;
+      border-radius: 8px;
+      margin: -25px -25px 25px -25px;
+      background: linear-gradient(135deg, #000000 0%, #4a3fb8 100%);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      position: relative;
+      overflow: hidden;
+      transform: translateY(0);
+      transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+      animation: slideIn 0.8s ease-out;
+    }
+    
+    .resumen-container:nth-child(odd) .resumen-title {
+      background: linear-gradient(135deg, #000000 0%, #4a3fb8 100%);
+    }
+    
+    .resumen-title:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      background: linear-gradient(135deg, #000000 0%, #7060ff 100%);
+    }
+    
+    .resumen-title::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+      );
+      transition: 0.6s;
+    }
+    
+    .resumen-title:hover::before {
+      left: 100%;
+    }
+    
+    @keyframes slideIn {
+      0% {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(108, 92, 231, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 15px rgba(108, 92, 231, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(108, 92, 231, 0);
+      }
+    }
+    
+    .resumen-title {
+      animation: slideIn 0.8s ease-out, pulse 2s infinite 1s;
+    }
+    
+    .resumen-item {
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .resumen-item:last-child {
+      border-bottom: none;
+    }
+    
+    .code-block {
+      background-color: #2d2d2d;
+      color: #f8f8f2;
+      padding: 15px;
+      border-radius: 5px;
+      font-family: 'Courier New', Courier, monospace;
+      overflow-x: auto;
+      margin: 15px 0;
+    }
+    
+    .pdf-controls {
+      margin: 30px 0;
+      text-align: center;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+    
+    .pdf-controls a {
+      display: inline-block;
+      padding: 12px 20px;
+      background-color: #6c5ce7;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .pdf-controls a:hover {
+      background-color: #5649c0;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .ejercicios-btn {
+      background-color: #871dc9 !important;
+      margin-top: 15px;
+      flex: 1 0 100%;
+      max-width: 250px;
+    }
+    
+    h1, h2 {
+      color: #4a3fb8;
+    }
+    
+    h1 {
+      margin-bottom: 30px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #e0d6ff;
+      text-align: center;
+    }
+    
+    h2 {
+      margin-top: 0;
+      color: #5e4b9e;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+    }
+    
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+    
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+    
+    th {
+      background-color: #4a3fb8;
+      color: white;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    
+    @media (max-width: 768px) {
+      .contenido-semana {
+        margin: 20px;
+        padding: 20px;
+      }
+      
+      .pdf-controls a {
+        padding: 10px 15px;
+        font-size: 0.9em;
+      }
+      
+      .resumen-title {
+        padding: 12px 20px;
+        font-size: 1.1em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>CUADERNO</h1>
+  </header>
+
+  <main class="contenido-semana">
+    <h2>Semana 4: Tailwind CSS</h2>
+    <p>Framework de utilidades CSS para crear interfaces modernas de forma rápida y eficiente.</p>
+    
+    <div class="resumen-container">
+      <div class="resumen-title">Concepto de clases utilitarias (Atomic CSS)</div>
+      
+      <div class="resumen-item">
+        <h3>Definición y características</h3>
+        <p>Tailwind CSS utiliza un enfoque de "Atomic CSS" donde cada clase representa una única propiedad CSS.</p>
+        <div class="code-block">
+          <!-- CSS tradicional -->
+          .card {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+          }
+
+          <!-- Tailwind -->
+          &lt;div class="bg-white rounded-xl p-8 shadow-md"&gt;&lt;/div&gt;
+        </div>
+        
+        <h3>Ventajas</h3>
+        <ul>
+          <li>Reducción de CSS personalizado</li>
+          <li>Consistencia visual en todo el proyecto</li>
+          <li>Facilidad para diseño responsivo</li>
+          <li>Mejor mantenibilidad del código</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Diseño responsivo con sm, md, lg, xl</div>
+      
+      <div class="resumen-item">
+        <h3>Breakpoints predefinidos</h3>
+        <table>
+          <tr>
+            <th>Prefijo</th>
+            <th>Pantalla mínima</th>
+            <th>Uso común</th>
+          </tr>
+          <tr>
+            <td>sm:</td>
+            <td>640px</td>
+            <td>Teléfonos grandes</td>
+          </tr>
+          <tr>
+            <td>md:</td>
+            <td>768px</td>
+            <td>Tablets</td>
+          </tr>
+          <tr>
+            <td>lg:</td>
+            <td>1024px</td>
+            <td>Laptops</td>
+          </tr>
+          <tr>
+            <td>xl:</td>
+            <td>1280px</td>
+            <td>PCs de escritorio</td>
+          </tr>
+        </table>
+        
+        <h3>Ejemplo práctico</h3>
+        <div class="code-block">
+          &lt;div class="text-sm md:text-lg xl:text-xl"&gt;
+            Este texto cambia de tamaño según el dispositivo
+          &lt;/div&gt;
+        </div>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Personalización con tailwind.config.js</div>
+      
+      <div class="resumen-item">
+        <h3>Configuración básica</h3>
+        <p>Tailwind permite personalizar colores, fuentes, espaciados y más mediante el archivo de configuración.</p>
+        <div class="code-block">
+          // tailwind.config.js
+          module.exports = {
+            theme: {
+              extend: {
+                colors: {
+                  primary: '#1E40AF',
+                  secondary: '#FBBF24',
+                }
+              }
+            }
+          }
+        </div>
+        
+        <h3>Uso de colores personalizados</h3>
+        <div class="code-block">
+          &lt;button class="bg-primary text-white"&gt;
+            Botón con color personalizado
+          &lt;/button&gt;
+        </div>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Espaciado, tipografía y bordes</div>
+      
+      <div class="resumen-item">
+        <h3>Clases comunes</h3>
+        <table>
+          <tr>
+            <th>Tipo</th>
+            <th>Ejemplos</th>
+            <th>Descripción</th>
+          </tr>
+          <tr>
+            <td>Espaciado</td>
+            <td>m-4, p-4, mx-2, py-3</td>
+            <td>Margins y paddings</td>
+          </tr>
+          <tr>
+            <td>Tipografía</td>
+            <td>text-lg, font-bold, text-center</td>
+            <td>Tamaño, peso y alineación</td>
+          </tr>
+          <tr>
+            <td>Bordes</td>
+            <td>border, border-2, rounded-lg</td>
+            <td>Grosor, estilo y radio</td>
+          </tr>
+        </table>
+        
+        <h3>Ejemplo combinado</h3>
+        <div class="code-block">
+          &lt;div class="m-4 p-4 border-2 border-blue-500 rounded-lg"&gt;
+            Contenedor con espaciado y bordes
+          &lt;/div&gt;
+        </div>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Flexbox y Grid</div>
+      
+      <div class="resumen-item">
+        <h3>Flexbox con Tailwind</h3>
+        <div class="code-block">
+          &lt;div class="flex flex-col md:flex-row justify-center items-center gap-4"&gt;
+            &lt;div&gt;Elemento 1&lt;/div&gt;
+            &lt;div&gt;Elemento 2&lt;/div&gt;
+          &lt;/div&gt;
+        </div>
+        
+        <h3>Grid con Tailwind</h3>
+        <div class="code-block">
+          &lt;div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"&gt;
+            &lt;div class="col-span-1"&gt;Item 1&lt;/div&gt;
+            &lt;div class="col-span-1"&gt;Item 2&lt;/div&gt;
+            &lt;div class="col-span-1 md:col-span-2"&gt;Item 3&lt;/div&gt;
+          &lt;/div&gt;
+        </div>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Dark Mode y variantes de estado</div>
+      
+      <div class="resumen-item">
+        <h3>Modo oscuro</h3>
+        <div class="code-block">
+          &lt;div class="bg-white dark:bg-gray-800"&gt;
+            &lt;p class="text-gray-900 dark:text-white"&gt;
+              Texto que cambia en modo oscuro
+            &lt;/p&gt;
+          &lt;/div&gt;
+        </div>
+        
+        <h3>Variantes interactivas</h3>
+        <div class="code-block">
+          &lt;button class="bg-blue-500 hover:bg-blue-700 focus:ring-2 focus:ring-blue-300 active:bg-blue-800"&gt;
+            Botón interactivo
+          &lt;/button&gt;
+        </div>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Optimización con PurgeCSS</div>
+      
+      <div class="resumen-item">
+        <h3>Configuración básica</h3>
+        <div class="code-block">
+          // tailwind.config.js
+          module.exports = {
+            content: ['./src/**/*.{html,js}'],
+            // Elimina clases no utilizadas en producción
+          }
+        </div>
+        
+        <h3>Modo JIT (Tailwind v3+)</h3>
+        <p>Tailwind v3+ incluye el modo Just-In-Time que genera solo las clases usadas, eliminando la necesidad de PurgeCSS.</p>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Animaciones y efectos</div>
+      
+      <div class="resumen-item">
+        <h3>Transiciones y transformaciones</h3>
+        <div class="code-block">
+          &lt;button class="transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"&gt;
+            Botón con efectos
+          &lt;/button&gt;
+        </div>
+        
+        <h3>Sombras</h3>
+        <div class="code-block">
+          &lt;div class="shadow-sm hover:shadow-md transition-shadow"&gt;
+            Card con sombra interactiva
+          &lt;/div&gt;
+        </div>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Componentización con @apply</div>
+      
+      <div class="resumen-item">
+        <h3>Creación de componentes</h3>
+        <div class="code-block">
+          /* CSS */
+          .btn-primary {
+            @apply py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-700;
+          }
+          
+          /* HTML */
+          &lt;button class="btn-primary"&gt;Botón&lt;/button&gt;
+        </div>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Integración con frameworks</div>
+      
+      <div class="resumen-item">
+        <h3>Comparación de integración</h3>
+        <table>
+          <tr>
+            <th>Framework</th>
+            <th>Método de instalación</th>
+            <th>Ventaja principal</th>
+          </tr>
+          <tr>
+            <td>React</td>
+            <td>npm install -D tailwindcss</td>
+            <td>Componentes reutilizables</td>
+          </tr>
+          <tr>
+            <td>Vue</td>
+            <td>npm install -D tailwindcss</td>
+            <td>Plantillas con binding flexible</td>
+          </tr>
+          <tr>
+            <td>Next.js</td>
+            <td>npx create-next-app --example with-tailwindcss</td>
+            <td>Renderizado del lado del servidor</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="resumen-container">
+      <div class="resumen-title">Laboratorio N° 04</div>
+      
+      <div class="resumen-item">
+        <h3>Ejercicios Prácticos</h3>
+        <ol>
+          <li>Crear una barra de navegación responsiva con Flexbox</li>
+          <li>Diseñar una galería de imágenes con Grid</li>
+          <li>Implementar un componente con modo oscuro</li>
+          <li>Personalizar la paleta de colores en tailwind.config.js</li>
+          <li>Crear un botón con efectos hover y focus</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="pdf-controls">
+      <a href="../cuaderno.html">← Volver al inicio</a>
+      <a href="../docs/semana4.pdf" download>Descargar PDF</a>
+    </div>
+  </main>
+</body>
+</html>
